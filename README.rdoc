@@ -1,9 +1,7 @@
 HipHop Labs
 
-This is an app-template ready for using Devise + OAuth (Facebook Login).
+This is the alpha version of Soxialit [http://beta.soxialit.com]
 
-Things you should consider:
+Soxialit is a fashion social network for Mexico and Latin America.
 
-- Replace your Facebook Key and hide it in your .bashrc.
-
-HipHop Labs 2012. [Mexico]
+All rights reserved by HipHop Labs 2012. [Mexico]
