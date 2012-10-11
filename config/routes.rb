@@ -4,6 +4,8 @@ DeviseFacebook::Application.routes.draw do
 
   devise_for :users
 
+  match '/auth/:provider/callback', to: 'authentications#create', as: 'signin'
+
   #root :to => 
 
   # The priority is based upon order of creation:
