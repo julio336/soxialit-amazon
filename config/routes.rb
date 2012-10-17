@@ -1,11 +1,11 @@
 DeviseFacebook::Application.routes.draw do
-  
+
   root :to => 'static_pages#home'
 
-  devise_for :users  
-
-  resources :user_steps
+  devise_for :users
   resources :products
+  resources :users
+  resources :user_steps
 
   match '/auth/:provider/callback', to: 'authentications#create', as: 'signin'
 
