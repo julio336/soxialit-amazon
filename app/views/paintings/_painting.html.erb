@@ -1,0 +1,18 @@
+
+<div style="padding:2%" class="painting" id="painting_<%= @painting.id %>">
+<% if painting == Painting.first %>
+  	<%= link_to image_tag(painting.image_url(:timeline)), painting if painting.image? %>
+	<div class="actions">
+	    <%= link_to "edit", edit_painting_path(painting) %> |
+	    <%= link_to "remove", painting, method: :delete, remote: true %>
+  	</div>
+<% else %>
+  <%= link_to image_tag(painting.image_url(:thumb)), painting if painting.image? %>
+	<div class="actions">
+	    <%= link_to "edit", edit_painting_path(painting) %> |
+	    <%= link_to "remove", painting, method: :delete, remote: true %>
+	</div>
+  
+<% end %>
+
+</div>

@@ -1,0 +1,35 @@
+commit a729ef1b2f055a8f1bf4c96bc3c64b59e5348b3f
+Author: jogam5 <jogam5@yahoo.com.mx>
+Date:   Wed Oct 17 13:29:25 2012 -0500
+
+    Product Scaffold
+
+commit 071bccb5f5e063888ab7a71d4720a9ea913fd88b
+Author: jogam5 <jogam5@yahoo.com.mx>
+Date:   Wed Oct 17 12:42:32 2012 -0500
+
+    Finish Devise and CanCan
+
+commit 7a3ab688779d98edab1bccd2e786c4aa4f206d0c
+Author: jogam5 <jogam5@yahoo.com.mx>
+Date:   Thu Oct 11 12:23:37 2012 -0500
+
+    First Commit
+
+commit 69ea35462860ff1fabf706d42a7d12cb46595c1d
+Author: jogam5 <jogam5@yahoo.com.mx>
+Date:   Thu Oct 11 12:09:20 2012 -0500
+
+    README updated
+
+commit c08e0133bff14658dc4339cedc1577856cf58b96
+Author: jogam5 <jogam5@yahoo.com.mx>
+Date:   Thu Oct 11 10:06:27 2012 -0500
+
+    Finish Facebook Oauth
+
+commit 7159a269b1294c79109793590c7bb637c27c5063
+Author: jogam5 <jogam5@yahoo.com.mx>
+Date:   Wed Oct 10 16:43:36 2012 -0500
+
+    Devise installed
