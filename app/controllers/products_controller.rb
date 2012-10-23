@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   def index
     if params[:tag]
       @products = Product.tagged_with(params[:tag])
+      
     else
       @products = Product.all
     end

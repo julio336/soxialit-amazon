@@ -15,7 +15,6 @@ DeviseFacebook::Application.routes.draw do
   
   match '/auth/:provider/callback', to: 'authentications#create', as: 'signin'
   get 'tags/:tag', to: 'products#index', as: :tag
-
   #root :to => 
 
   # The priority is based upon order of creation:
