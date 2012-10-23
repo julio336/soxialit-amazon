@@ -1,3 +1,14 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.defaultMainImage
+{width:496px;height:496px;border:2px ridge #cbccce;background:url(camara.png) no-repeat 50% 50%;}
+
+body { padding-top: 100px; }
+footer { margin-top: 100px; }
+td.picture { width: 140px; }
+td.picture img { width: 140px; }
+
+.smallImage
+{width:150px;list-style: none; height:150px;border:2px ridge #cbccce;background:url(camara_thumb.png) no-repeat 50% 50%;}

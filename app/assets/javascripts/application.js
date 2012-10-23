@@ -12,5 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery/
 //= require bootstrap
 //= require_tree .
+
+
+$(function() {
+  $("#tag_tag_list").tokenInput("/products/5/tags.json", {
+    crossDomain: false,
+    prePopulate: $("#tag_tag_list").data("pre"),
+    theme: "facebook"
+  });
+});

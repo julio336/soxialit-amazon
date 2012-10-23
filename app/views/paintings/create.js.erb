@@ -1,0 +1,18 @@
+
+<% if @painting.new_record? %>
+  alert("Failed to upload painting: <%= j @painting.errors.full_messages.join(', ').html_safe %>");
+
+	<% elsif @painting == Painting.first %>
+	$("#foto").append('<%= escape_javascript(render(@painting)) %>');
+	$("#foto").css('background', 'url(painting.image_url)');
+	<% else  %>
+		<% if Painting.count <= 4 %>
+		$("#small_foto").append('<%= escape_javascript(render(@painting)) %>');
+		$("#small_foto").css('background', 'url(painting.image_url)');
+		<% else %>
+		alert("Just allow 4 pictures! Thanks")
+		<% end %>
+	
+<% end %>
+
+

@@ -14,10 +14,8 @@
   <p>Choose your role:</p>
   <% for role in Role.find(:all) %>
     <div>
-      <% if role.name != 'admin' %>
         <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
         <%= role.name %>
-      <% end %>
     </div>
   <% end %>
   <br />

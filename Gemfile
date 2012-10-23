@@ -11,6 +11,10 @@ gem 'cancan'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'oauth2'
+gem 'carrierwave'
+gem 'rmagick'
+gem 'acts-as-taggable-on'
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

@@ -10,44 +10,80 @@
       </ul>
     </div>
   <% end %>
+<div sytle="padding-top: 2%" class="span3">
+  <div class="field">
+    <%= f.text_field :title, placeholder: " *titulo" %>
+  </div>
+  <div class="field">
+    <%= f.text_area :description, rows: "4", placeholder: "*describe tu producto" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :color, placeholder: "*color" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :material, placeholder: "*material" %>
+  </div>
+ 
+  <div class="field">
+    <%= f.text_area :refund_policy, rows: "3", placeholder: "*política de devoluciones" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :size, placeholder: "*talla" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :quantity, placeholder: "*cantidad" %>
+  </div>
+  
+  <div class="field">
+		<p>
+		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags" %>
+		<p>
+		<div class="actions">
+			<%= f.submit "Create Product", class: "btn btn-large btn-primary" %>
+			
+		</div>
+  </div>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :color %><br />
-    <%= f.text_field :color %>
-  </div>
-  <div class="field">
-    <%= f.label :material %><br />
-    <%= f.text_field :material %>
-  </div>
-  <div class="field">
-    <%= f.label :picture %><br />
-    <%= f.text_field :picture %>
-  </div>
-  <div class="field">
-    <%= f.label :refund_policy %><br />
-    <%= f.text_field :refund_policy %>
-  </div>
-  <div class="field">
-    <%= f.label :size %><br />
-    <%= f.text_field :size %>
-  </div>
-  <div class="field">
-    <%= f.label :quantity %><br />
-    <%= f.number_field :quantity %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  
+</div>
+
 <% end %>
+<div class="span6">
+			<div class="defaultMainImage" id="foto" data-id="<%= @painting.id %>">
+			</div>
+				
+</div>
+<div class="span3">
+	<ul id="productImagesSortable">
+
+   	  <li class="smallImage" id="small_foto" data-id="<%= @painting.id %>" >
+
+      </li>
+
+      <li class="smallImage" id="small_foto" data-id="<%= @painting.id %>">
+      </li>
+
+      <li class="smallImage" id="small_foto" data-id="<%= @painting.id %>">
+      </li>
+		<div class="field">
+			<%= form_for(Painting.new, :remote => true) do |f| %>
+			  <%= f.label :image, "*agrega fotos:" %>
+			  <%= f.hidden_field :product_id, :value => find_id %>
+			  <%= f.file_field :image, multiple: true, name: "painting[image]"%>
+			
+			<% end %>
+		</div>
+	</ul>
+</div>
+
+
+<script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+	<div class="span2">
+		{%=o.name%}
+  		<div class="progress"><div class="bar" style="width: 0%"></div></div>
+	</div
+</div>
+</script>
+
+
