@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   # GET /products/new.json
   def new
-    @product = Product.new
+    @product = Product.create
     @painting = Painting.new
     @paintings = Painting.all
     
@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = current_user.products.build(params[:product])
+    @product = current_user.products.update_attributes(params[:product])
     
     respond_to do |format|
       if @product.save

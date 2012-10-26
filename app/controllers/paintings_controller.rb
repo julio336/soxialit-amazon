@@ -26,7 +26,6 @@ class PaintingsController < ApplicationController
     @painting = Painting.new
     @painting.idea_id = @idea.id
     
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @painting }
@@ -47,7 +46,6 @@ class PaintingsController < ApplicationController
   # POST /paintings.json
   def create
     @painting = Painting.create(params[:painting])
-    @product = Product.create(params[:id])
     respond_to do |format|
         format.html { redirect_to @painting, notice: 'Painting was successfully created.' }
         format.json { render json: @painting, status: :created, location: @painting }

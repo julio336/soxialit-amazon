@@ -1,6 +1,6 @@
 
 <div style="padding:2%" class="painting">
-<% if painting == @product.paintings.first %>
+<% if @product.paintings.first %>
   	<%= link_to image_tag(painting.image_url(:timeline)), painting if painting.image? %>
 	<div class="actions">
 	    <%= link_to "edit", edit_painting_path(painting) %> |

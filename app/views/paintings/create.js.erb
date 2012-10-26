@@ -1,21 +1,11 @@
 
-<% if @painting.new_record? %>
-  alert("Failed to upload painting: <%= j @painting.errors.full_messages.join(', ').html_safe %>");
-	<% elsif @painting == @product.paintings.first %>
-	var i = 0
+	var i = 0;
   	$("#foto").append('<%= escape_javascript(render(@painting)) %>');
-	$("#foto").css('background', 'url(painting.image_url)');
-	<% else  %>
-		<% if @product.paintings.count <= 4 %>
+/*	$("#foto").css('background', 'url(painting.image_url)');
 		$($("ul#productImagesSortable").children('li')[i]).append('<%= escape_javascript(render(@painting)) %>');
-	//	$("#small_foto").append('<%= escape_javascript(render(@painting)) %>');
 		$($("ul#productImagesSortable").children('li')[i]).css('background', 'url(painting.image_url)');
-		//$("#small_foto").css('background', 'url(painting.image_url)');
 		i += 1
-		<% else %>
-		alert("Just allow 4 pictures! Thanks")
-		<% end %>
+		alert("Just allow 4 pictures! Thanks") */
 	
-<% end %>
 
 
