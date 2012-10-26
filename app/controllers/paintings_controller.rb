@@ -36,12 +36,18 @@ class PaintingsController < ApplicationController
   # GET /paintings/1/edit
   def edit
     @painting = Painting.find(params[:id])
+     respond_to do |format|
+         format.html { redirect_to @painting, notice: 'Painting was successfully created.' }
+         format.json { render json: @painting, status: :created, location: @painting }
+         format.js
+     end
   end
 
   # POST /paintings
   # POST /paintings.json
   def create
     @painting = Painting.create(params[:painting])
+    @product = Product.create(params[:id])
     respond_to do |format|
         format.html { redirect_to @painting, notice: 'Painting was successfully created.' }
         format.json { render json: @painting, status: :created, location: @painting }

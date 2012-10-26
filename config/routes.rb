@@ -1,24 +1,28 @@
 DeviseFacebook::Application.routes.draw do
-  
 
   resources :paintings
 
   root :to => 'static_pages#home'
 
   root :to => 'static_pages#home'
+  get "products/tags" => "products#tags", :as => :products_tags
 
+  
   devise_for :users
-  resources :products
+
+  resources :products 
+  
   resources :users
 
   resources :user_steps
 
   resources :products
-  
-  
-  
+  match '/tags', to: 'tags#show_tags'
   match '/auth/:provider/callback', to: 'authentications#create', as: 'signin'
+  
   get 'tags/:tag', to: 'products#index', as: :tag
+  
+  
   #root :to => 
 
   # The priority is based upon order of creation:

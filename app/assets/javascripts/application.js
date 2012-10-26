@@ -16,11 +16,10 @@
 //= require bootstrap
 //= require_tree .
 
-
-$(function() {
-  $("#tag_tag_list").tokenInput("/products/5/tags.json", {
+$(function () {
+  $('#product_tag_list').tokenInput('/products/tags.json', { 
     crossDomain: false,
-    prePopulate: $("#tag_tag_list").data("pre"),
-    theme: "facebook"
+    prePopulate: $('#product_tag_list').data('pre'),
+    theme: 'facebook'
   });
 });
