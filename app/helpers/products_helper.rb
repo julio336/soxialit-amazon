@@ -1,7 +1,35 @@
 module ProductsHelper
+  
   def find_id
     a = Product.last
     b = a.id
     return b
   end
+  
+  
+  def url_painting(product)
+     a = product.first
+     return a.image_url
+  end
+  
+  def find_user (user)
+     user = User.find_by_id(user)
+     return user.username
+  end
+  
+  def find_picture(user)
+    user = User.find_by_id(user)
+    return user.picture
+  end
+  
+  def find_evaluation_id(evaluation)
+     if current_user.evaluations.nil?
+         a = evaluation.first
+          b = a.source_id
+          return b
+     else
+       
+     end
+  end
+     
 end

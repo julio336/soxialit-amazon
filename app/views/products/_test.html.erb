@@ -1,0 +1,30 @@
+<div class="modal-soxialit">
+		<div style="min-height:50px; margin-bottom:0px; background-color:white; padding: 10px" class="well">
+			<p style="float:right"><%= link_to "Follow", "#", :class => "btn btn-success"%></p>
+			<p class="user_picture"><%= link_to image_tag(find_picture(@product.user_id)), user_path(@product.user_id) %> </p>
+			<div class="product_credits"><%= "#{@product.title} by "%><%= link_to find_user(@product.user_id), user_path(@product.user_id) %> </div>
+			<div class="product_description"><%= @product.description %></div>
+			<div class="product_description">Posted <%= distance_of_time_in_words(Time.now, @product.created_at) %> later</div>
+			
+			
+		</div>
+  <div style="background-color: #F2F0F0" class="modal-body center">
+	<div class="row">
+     	<div class="span8 offset1">	
+				<% if @product.paintings.count >= 1 %>
+				  <div class="product_modal">
+					<%= link_to image_tag(url_painting(@product.paintings)), @product %>
+				  </div>
+				<% end %>
+		</div>
+	
+	</div>
+   </div>
+  	<div class="modal-footer">
+		<div class="product_tags">
+			Tags: <%= raw @product.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+		</div>
+	
+ 		<a href="#" class="btn">Close</a>
+	</div>
+</div>

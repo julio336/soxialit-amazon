@@ -24,7 +24,6 @@ class PaintingsController < ApplicationController
   # GET /paintings/new.json
   def new
     @painting = Painting.new
-    @painting.idea_id = @idea.id
     
     respond_to do |format|
       format.html # new.html.erb
@@ -34,7 +33,9 @@ class PaintingsController < ApplicationController
 
   # GET /paintings/1/edit
   def edit
-    @painting = Painting.find(params[:id])
+    @product = Product.find(params[:id])
+    @painting = @product.paintings.create(params[:painting])
+    
      respond_to do |format|
          format.html { redirect_to @painting, notice: 'Painting was successfully created.' }
          format.json { render json: @painting, status: :created, location: @painting }
@@ -45,7 +46,11 @@ class PaintingsController < ApplicationController
   # POST /paintings
   # POST /paintings.json
   def create
-    @painting = Painting.create(params[:painting])
+     @painting = Painting.create(params[:painting])
+     @product = Product.last
+     #@painting = @product.paintings.update_attributes(params[:painting])
+     
+    
     respond_to do |format|
         format.html { redirect_to @painting, notice: 'Painting was successfully created.' }
         format.json { render json: @painting, status: :created, location: @painting }
@@ -81,4 +86,9 @@ class PaintingsController < ApplicationController
       format.js 
     end
   end
+end
+
+def find_id
+   @paintings = @product.paintings.first
+   return @paintings.product_id
 end

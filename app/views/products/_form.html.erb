@@ -1,4 +1,4 @@
-<%= form_for (@product) do |f| %>
+<%= form_for (@product), :validate => true do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -25,21 +25,48 @@
   </div>
  
   <div class="field">
-    <%= f.text_area :refund_policy, rows: "3", placeholder: "*política de devoluciones" %>
+	<p style="float:left">
+		<%= f.label :refund_policy, "*políticas de devolución" %>
+	</p>
+	<i style="margin-left: 5%" id="policy_info" class="icon-info-sign icon-black"></i>
+	<div class="popover fade top in" id="pop_policy" style="display:none; position: absolute; top: 260px; left: 215px;">
+		<div class="arrow">
+		</div>
+		<div class="popover-inner">
+			<div class="popover-content">
+				<p>Ejemplo: "No aplica.", "Solo si el producto esta dañado.", "Solo si después de 30 días no ha sido entregado"</p>
+			</div>
+		</div>
+	</div>	
+    <%= f.text_area :refund_policy, rows: "3" %>
+
+
   </div>
   <div class="field">
-    <%= f.text_field :size, placeholder: "*talla" %>
+	<%= f.label :size, "Elige la talla" %>
+	<%= f.select :size, ['CH','M','GR','Unitalla'], :selected => 'CH' %>
+	
   </div>
   <div class="field">
-    <%= f.text_field :quantity, placeholder: "*cantidad" %>
+	<%= f.label :quantity, "Cantidad" %>
+    <%= f.number_field :quantity, :in => 1..5 %>
   </div>
-  
+   
   <div class="field">
-		<p>
+		<p style="float:left">
 			<%= f.label :tag_list, "*agrega tus tags" %>
-		</p>
+		</p>		
+			<i style="margin-left: 5%" id="tag_info" class="icon-info-sign icon-black"></i>
+			<div class="popover fade top in" id="pop_tag" style="display:none; position: absolute; top: 555px; left: 170px;">
+				<div class="arrow">
+				</div>
+				<div class="popover-inner">
+					<div class="popover-content">
+						<p>¿Qué palabras describen a tu producto?(separalas por comas)</p>
+					</div>
+				</div>
+			</div>
 		<p>
-		    
 		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json %>
 		</p>
 		<div class="actions">
@@ -53,41 +80,36 @@
 </div>
 
 <% end %>
-<div class="span6">
-			<div class="defaultMainImage" id="foto">
-			</div>
+<div style="margin-top: -20px" class="span6" id="mainImage">
+	<div class="defaultMainImage">
+		
+	</div>
 				
 </div>
 <div class="span3">
+	<div class="field">
+		<%= form_for(Painting.new, :remote => true) do |f| %>
+		  <%= f.label :image, "*agrega tus fotos(máximo 4 fotos):" %>
+		  <%= f.hidden_field :product_id, :value => @product.id %>
+		  <%= f.file_field :image, multiple: true, name: "painting[image]"%>
+		<% end %>
+	</div>
 	<ul id="productImagesSortable">
-
-   	  <li class="smallImage" id="small_foto" >
-
-      </li>
-
-      <li class="smallImage" id="small_foto" >
-      </li>
-
-      <li class="smallImage" id="small_foto" >
-      </li>
-		<div class="field">
-			<%= form_for(Painting.new, :remote => true) do |f| %>
-			  <%= f.label :image, "*agrega fotos:" %>
-			  <%= f.hidden_field :product_id, :value => find_id %>
-			  <%= f.file_field :image, multiple: true, name: "painting[image]"%>
-			
-			<% end %>
-		</div>
+		<li class="smallImage" id="image_small">
+		</li>
 	</ul>
 </div>
 
 
 <script id="template-upload" type="text/x-tmpl">
-<div class="upload">
-	<div class="span2">
-		{%=o.name%}
-  		<div class="progress"><div class="bar" style="width: 0%"></div></div>
-	</div
+<div id="name" style="display:none">
+
+	<div class="upload">
+		<div class="span2">
+			{%=o.name%}
+	  		<div class="progress"><div class="bar" style="width: 0%"></div></div>
+		</div
+	</div>
 </div>
 </script>
 

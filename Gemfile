@@ -14,7 +14,12 @@ gem 'oauth2'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'acts-as-taggable-on'
-
+gem 'kaminari'
+gem 'paypal-recurring'
+gem 'activerecord-reputation-system', require: 'reputation_system'
+gem 'mercadopago'
+gem 'client_side_validations'
+gem 'fog'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

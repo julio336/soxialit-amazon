@@ -7,7 +7,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   include Sprockets::Helpers::RailsHelper
   include Sprockets::Helpers::IsolatedHelper
 
-  storage :file
+  storage :fog
+  
+  include CarrierWave::MimeTypes
+  process :set_content_type
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -22,6 +25,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
   
   version :timeline do
-    process :resize_to_fit => [520,480]
+    process :resize_to_fit => [500,480]
   end
+  
 end

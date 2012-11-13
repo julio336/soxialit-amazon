@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :products, :dependent => :destroy
+  has_many :evaluations, class_name: "RSEvaluation", as: :source
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -13,6 +15,12 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_many :authentications, :dependent => :delete_all
+
+  has_reputation :votes, source: {reputation: :votes, of: :products}, aggregated_by: :sum
+  
+  def voted_for?(haiku)
+      evaluations.where(target_type: haiku.class, target_id: haiku.id).present?
+  end
 
   def apply_omniauth(auth)
 	  # In previous omniauth, 'user_info' was used in place of 'raw_info'

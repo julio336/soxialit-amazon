@@ -1,39 +1,64 @@
-<h1>Listing products</h1>
+<div style="margin-left:-15%; margin-right: -15%;" id="contenedor" class="clearfix masonry">
+	<%= render @products %>
+</div>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Color</th>
-    <th>Material</th>
-    <th>Picture</th>
-    <th>Refund policy</th>
-    <th>Size</th>
-    <th>Quantity</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<!--<%= link_to 'New Product', new_product_path %> -->
 
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.title %></td>
-    <td><%= product.description %></td>
-    <td><%= product.color %></td>
-    <td><%= product.material %></td>
-    <td><%= product.picture %></td>
-    <td><%= product.refund_policy %></td>
-    <td><%= product.size %></td>
-    <td><%= product.quantity %></td>
-    <td><%= product.user_id %></td>
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+<script type="text/javascript">
 
-<br />
+(function() {
+  var page = 1, // current page
+      loading = false; // currently loading a new page?
+  
+  function nearBottomOfPage() {
 
-<%= link_to 'New Product', new_product_path %>
+    return $(window).scrollTop() > $(document).height() - $(window).height() - 200;
+  }
+
+  $(window).scroll(function(){
+    if (loading) { // do nothing if already loading a new page
+      return;
+    }
+
+   // var wall = new Masonry( document.getElementById('contenedor') );
+	
+	var wall = new Masonry( document.getElementById('contenedor'), {
+	    // options...
+	    isResizable: true
+	  });
+    
+    if(nearBottomOfPage()) {
+      loading=true;
+      page++;
+	 $("#loading_image").fadeIn();
+		
+      $.ajax({ // send an ajax-request to load the next page
+        url: '/products?page=' + page,
+        type: 'get',
+        dataType: 'script',
+        success: function() { // after successfully completing the ajax-request redraw the sausage-navigation.
+	      $("#loading_image").hide(); // hide ajax loader         
+    
+          $(window).sausage('draw');
+          loading=false;
+        }
+      });
+    }
+  });
+    
+  $(window).sausage();
+}());
+
+
+var anchor = $('<a>', {'style':'display:block', 'id': 'image_top', 'class':'back_to_top', 'href':'#top', 'title': 'Back to Top', 'text': 'Top'});  anchor.appendTo($(document.body))    .hide();
+
+	$(window).scroll(function(event){
+	      if(getScrollTop() > 150) {
+	          anchor.fadeIn(300);
+	      } else {
+	          anchor.fadeOut(300, function() {$(this).hide();});
+	      }
+	  });function getScrollTop() { 
+ var x = 0;    x = x !== 0 ? top : (window.pageYOffset ? window.pageYOffset : 0);    x = x !== 0 ? x : (document.documentElement ? document.documentElement.scrollTop : 0);    x = x !== 0 ? x : (document.body ? document.body.scrollTop : 0);    return x;}
+  
+  </script>

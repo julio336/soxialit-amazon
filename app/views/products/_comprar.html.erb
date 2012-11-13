@@ -1,0 +1,21 @@
+<div class="modal-soxialit">
+  <div class="modal-body center">
+	<h1>Detalles del producto</h1>
+	<br/>
+	<br/>
+	<br/>
+	<h3>Medios de pago: </h3>
+	<br/>
+	<div id="name" class="span6 offset2">
+		<div id="paypal_checkout" style="width:150px; float:left;">
+			<%= link_to "Pagar con Paypal", paypal_checkout_path(:product_id => @product.id), :class => "btn btn-success" %>
+			<%= image_tag("paypal.png")%>
+		</div>
+		<div id="mercadopago_checkout" style="width:200px; float:right">
+		<!--	<%= link_to "Pagar con MercadoPago", "#", :class => "btn btn-success" %> -->
+		<p><%= link_to "Pagar con MercadoPago", mercadopago_checkout_path(product_id: @product.id), :class => "btn btn-success" %></p>
+			<%= image_tag("mercadopago.png")%>
+		</div>
+	</div>
+  </div>
+</div>

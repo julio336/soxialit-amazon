@@ -1,0 +1,137 @@
+<%= form_for (@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div sytle="padding-top: 2%" id="product_form" class="span3">
+  <div class="field">
+    <%= f.text_field :title, placeholder: " *titulo" %>
+  </div>
+  <div class="field">
+    <%= f.text_area :description, rows: "4", placeholder: "*describe tu producto" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :color, placeholder: "*color" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :material, placeholder: "*material" %>
+  </div>
+ 
+  <div class="field">
+	<p style="float:left">
+		<%= f.label :refund_policy, "*políticas de devolución" %>
+	</p>
+	<i style="margin-left: 5%" id="policy_info" class="icon-info-sign icon-black"></i>
+	<div class="popover fade top in" id="pop_policy" style="display:none; position: absolute; top: 260px; left: 215px;">
+		<div class="arrow">
+		</div>
+		<div class="popover-inner">
+			<div class="popover-content">
+				<p>Ejemplo: "No aplica.", "Solo si el producto esta dañado.", "Solo si después de 30 días no ha sido entregado"</p>
+			</div>
+		</div>
+	</div>	
+    <%= f.text_area :refund_policy, rows: "3" %>
+
+
+  </div>
+  <div class="field">
+	<%= f.label :size, "Elige la talla" %>
+	<%= f.select :size, ['CH','M','GR','Unitalla'], :selected => 'CH' %>
+  </div>
+  <div class="field">
+	<%= f.label :quantity, "Cantidad" %>
+    <%= f.number_field :quantity, :in => 1..5 %>
+  </div>
+  
+  <div class="field">
+		<p style="float:left">
+			<%= f.label :tag_list, "*agrega tus tags" %>
+		</p>		
+			<i style="margin-left: 5%" id="tag_info" class="icon-info-sign icon-black"></i>
+			<div class="popover fade top in" id="pop_tag" style="display:none; position: absolute; top: 555px; left: 170px;">
+				<div class="arrow">
+				</div>
+				<div class="popover-inner">
+					<div class="popover-content">
+						<p>¿Qué palabras describen tu producto?(separalas por comas)</p>
+					</div>
+				</div>
+			</div>
+		<p>
+		    
+		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json %>
+		</p>
+		<div class="actions">
+			<%= f.submit "Update Product", class: "btn btn-large btn-primary" %>
+			
+		</div>
+	
+  </div>
+
+  
+</div>
+
+<% end %>
+<% if @paintings.nil?%>
+	<% else %>
+   <div class="span6">
+		  <% unless @paintings.first.nil? %>
+				<div class="mainpicture" id="painting_<%= @paintings.first.id %>">
+				<%= image_tag(@paintings.first.image_url(:timeline))  %>
+		  <% end %>
+		</div>
+	</div>
+	<div class="span3">
+		<div class="field">
+			<%= form_for(Painting.new, :remote => true) do |f| %>
+			  <%= f.label :image, "*agrega fotos:" %>
+			  <%= f.hidden_field :product_id, :value => @product.id %>
+			  <%= f.file_field :image, multiple: true, name: "painting[image]"%>
+			<% end %>
+		</div>
+		<ul id="productImagesSortable">
+			<% if @paintings.count > 1 %>
+				<% @paintings.each_with_index do |painting, index| %>
+					<% if index >= 1%>
+				<%= content_tag "div", id:"paintings", data: {id: painting.id } do %>
+				 <li class="smallImage">
+					<div class="small_image" id="painting_<%= painting.id%>">
+					<%= image_tag(painting.image_url(:thumb))%>
+						<div class="actions" id="remove_painting_<%= painting.id %>">
+							<%= link_to image_tag("close.png"), painting, method: :delete, remote: true, id: "remove" %>
+					  	</div>
+				 </li>
+				<% end %>
+				
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+				
+		</ul>
+			
+		</div>
+
+
+
+<script id="template-upload" type="text/x-tmpl">
+<div id="name" style="display:none">
+
+	<div class="upload">
+		<div class="span2">
+			{%=o.name%}
+	  		<div class="progress"><div class="bar" style="width: 0%"></div></div>
+		</div
+	</div>
+</div>
+</script>
+
+

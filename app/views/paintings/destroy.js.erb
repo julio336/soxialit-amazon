@@ -1,4 +1,2 @@
-$('#<%= dom_id(@painting) %>').fadeOut();
-$($("ul#productImagesSortable").children('li')[i]).css('background', 'url(painting.image_url)');
-
-//$('#<%= dom_id(@painting) %>').css('background', 'url(camara_thumb.png');
+$('#<%= dom_id(@painting) %>').fadeOut('slow');
+$('#<%= dom_id(@painting) %>').remove();

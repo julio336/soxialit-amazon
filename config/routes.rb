@@ -16,12 +16,20 @@ DeviseFacebook::Application.routes.draw do
 
   resources :user_steps
 
-  resources :products
+  resources :products do
+     member { post :vote }
+  end
+  
   match '/tags', to: 'tags#show_tags'
   match '/auth/:provider/callback', to: 'authentications#create', as: 'signin'
   
   get 'tags/:tag', to: 'products#index', as: :tag
   
+  get 'paypal/checkout', to: 'products#paypal_checkout'
+  
+  get '/comprar', to: 'products#comprar'
+  
+  get 'mercadopago/checkout', to: 'products#mercadopago_checkout'
   
   #root :to => 
 

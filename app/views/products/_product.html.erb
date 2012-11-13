@@ -1,0 +1,60 @@
+<%= content_tag "div", class: "products", data: {id: product.id } do %>
+	<div class="box col3 masonry-brick">
+			<div class="post">
+				<% if product.paintings.count >= 1 %>
+				  	<%= link_to image_tag(url_painting(product.paintings)), product, {:id => "modal", :rel => "tab", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true} %>
+				<% end %>
+				<p class="user_picture">
+					<%= link_to image_tag(find_picture(product.user_id)), user_path(product.user_id) %>
+				</p>
+				<div class="product_description">
+					<%= product.description %>
+				</div>
+		
+				<div class="product_credits" style="display:none" id="product_credit_<%= product.id %> ">
+					<%= "#{product.title} by "%><%= link_to find_user(product.user_id), user_path(product.user_id) %> 
+					<br/>
+					Tags: <%= raw product.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+					<p>
+						<% if signed_in? %>
+						-- <span style:"float:left"> LoVs: </span>
+							<span id="product_<%= product.id %>">
+						    | <%= pluralize product.reputation_value_for(:votes).to_i, "LoV" %>
+							</span>
+						    <% if product.user_id == find_evaluation_id(current_user.evaluations)%>
+							<% elsif current_user && !current_user.voted_for?(product) %>
+							| <span id="<%= product.id %>">
+								<%= link_to "LoV", vote_product_path(product, type: "up"), :remote => true, method: "post", id: "link" %>
+						      </span>
+							<% end %>
+						<% end %>
+					</p>
+				</div>
+			</div>
+		</div>
+<% end %>
+
+<script>
+
+	$(document).ready(function(){
+
+		$('.products').live({
+			mouseenter: 
+			function(){
+				console.log($(this).attr('data-id'));
+				$(this).find('#modal img').css('opacity', 1);
+				$(this).find('.product_description').hide();
+				$(this).find('.product_credits').fadeIn();
+				},
+			mouseleave:
+			function (){
+				$(this).find('#modal img').css('opacity', 0.7);
+				$(this).find('.product_credits').hide();
+				$(this).find('.product_description').fadeIn();
+				
+				}
+		  });
+
+	});
+		
+</script>
