@@ -1,5 +1,7 @@
 DeviseFacebook::Application.routes.draw do
 
+  resources :sizes
+
   resources :paintings
 
   root :to => 'static_pages#home'

@@ -1,6 +1,6 @@
 <div class="modal-soxialit">
 		<div style="min-height:50px; margin-bottom:0px; background-color:white; padding: 10px" class="well">
-			<p style="float:right"><%= link_to "Follow", "#", :class => "btn btn-success"%></p>
+		<!--	<p style="float:right"><%= link_to "Follow", "#", :class => "btn btn-success"%></p> -->
 			<p class="user_picture"><%= link_to image_tag(find_picture(@product.user_id)), user_path(@product.user_id) %> </p>
 			<div class="product_credits"><%= "#{@product.title} by "%><%= link_to find_user(@product.user_id), user_path(@product.user_id) %> </div>
 			<div class="product_description"><%= @product.description %></div>

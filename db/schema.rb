@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031204137) do
+ActiveRecord::Schema.define(:version => 20121116040017) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -40,8 +40,10 @@ ActiveRecord::Schema.define(:version => 20121031204137) do
     t.string   "size"
     t.integer  "quantity"
     t.integer  "user_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "brand"
+    t.decimal  "price",         :precision => 8, :scale => 2
   end
 
   add_index "products", ["user_id"], :name => "index_products_on_user_id"
@@ -100,6 +102,13 @@ ActiveRecord::Schema.define(:version => 20121031204137) do
   add_index "rs_reputations", ["reputation_name", "target_id", "target_type"], :name => "index_rs_reputations_on_reputation_name_and_target"
   add_index "rs_reputations", ["reputation_name"], :name => "index_rs_reputations_on_reputation_name"
   add_index "rs_reputations", ["target_id", "target_type"], :name => "index_rs_reputations_on_target_id_and_target_type"
+
+  create_table "sizes", :force => true do |t|
+    t.string   "name"
+    t.integer  "product_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

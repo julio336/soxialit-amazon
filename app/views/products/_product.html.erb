@@ -17,16 +17,23 @@
 					Tags: <%= raw product.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
 					<p>
 						<% if signed_in? %>
-						-- <span style:"float:left"> LoVs: </span>
-							<span id="product_<%= product.id %>">
-						    | <%= pluralize product.reputation_value_for(:votes).to_i, "LoV" %>
-							</span>
+							<div class="reputation" id="reputation_<%= product.id %>">
+							 	<span id="want_product_<%= product.id %>">
+									<i class="icon-star-empty icon-white"></i><%= pluralize product.reputation_value_for(:votes).to_i, "Want" %>
+								</span>
+						
+								<br/> 
+							</div>
+						
+							<div class="votacion" id="votacion_<%= product.id %>">
+					
 						    <% if product.user_id == find_evaluation_id(current_user.evaluations)%>
 							<% elsif current_user && !current_user.voted_for?(product) %>
-							| <span id="<%= product.id %>">
-								<%= link_to "LoV", vote_product_path(product, type: "up"), :remote => true, method: "post", id: "link" %>
-						      </span>
+								<span id="want_<%= product.id %>">
+							 		<%= link_to '<i class="icon-star-empty icon-white"></i> Want'.html_safe, vote_product_path(product, type: "up"), :remote => true,  method: "post", :class => "button-want", id: "link" %>
+						   		</span>
 							<% end %>
+						</div>
 						<% end %>
 					</p>
 				</div>
@@ -40,17 +47,24 @@
 
 		$('.products').live({
 			mouseenter: 
-			function(){
-				console.log($(this).attr('data-id'));
+			function(e){
+				e.preventDefault();
 				$(this).find('#modal img').css('opacity', 1);
 				$(this).find('.product_description').hide();
-				$(this).find('.product_credits').fadeIn();
+				$(this).find('.product_credits').show();
+				$(this).find('.reputation').show();
+				$(this).find('.votacion').show();
+				
 				},
 			mouseleave:
-			function (){
+			function (e){
+				e.preventDefault();
 				$(this).find('#modal img').css('opacity', 0.7);
 				$(this).find('.product_credits').hide();
 				$(this).find('.product_description').fadeIn();
+				$(this).find('.reputation').hide();
+				$(this).find('.votacion').hide();
+				
 				
 				}
 		  });

@@ -17,6 +17,31 @@ $(document).ready(function(){
 		
 	});
 	
+	
+/********* Funcion para rotar imagenes en show's product ******/
+
+	$('.paintings').live({
+		mouseenter: 
+		function(e){
+			e.preventDefault();
+			console.log($(this).data('id'));
+			$('.mainpicture').find('img').remove();
+			var test = $('.painting_'+$(this).data('id')).find('img').clone()
+			var image = test.attr('src').replace('thumb', 'timeline');
+			console.log(image);
+			test.attr('src', image).appendTo($('.mainpicture'));
+			
+		
+			},
+		mouseleave:
+		function (e){
+			e.preventDefault();
+			}
+	  });
+
+	
 
 	
 });
+
+

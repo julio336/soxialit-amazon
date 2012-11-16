@@ -1,4 +1,4 @@
-<%= form_for (@product) do |f| %>
+<%= form_for (@product), :validate => true do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -15,6 +15,13 @@
     <%= f.text_field :title, placeholder: " *titulo" %>
   </div>
   <div class="field">
+    <%= f.text_field :brand, placeholder: " *marca" %>
+  </div>
+  <div class="field">
+	<%= f.label :price, "*precio" %>
+    <%= f.text_field :price, placeholder: " *0.00", :class => "span2", :style => "float:left" %><p>   MXN </p>
+  </div>
+  <div class="field">
     <%= f.text_area :description, rows: "4", placeholder: "*describe tu producto" %>
   </div>
   <div class="field">
@@ -24,12 +31,12 @@
     <%= f.text_field :material, placeholder: "*material" %>
   </div>
  
-  <div class="field">
+  <div class="field" style="height: 127px">
 	<p style="float:left">
 		<%= f.label :refund_policy, "*políticas de devolución" %>
 	</p>
 	<i style="margin-left: 5%" id="policy_info" class="icon-info-sign icon-black"></i>
-	<div class="popover fade top in" id="pop_policy" style="display:none; position: absolute; top: 260px; left: 215px;">
+	<div class="popover fade top in" id="pop_policy" style="display:none; position: relative; top: -165px; left:50px">
 		<div class="arrow">
 		</div>
 		<div class="popover-inner">
@@ -37,45 +44,42 @@
 				<p>Ejemplo: "No aplica.", "Solo si el producto esta dañado.", "Solo si después de 30 días no ha sido entregado"</p>
 			</div>
 		</div>
-	</div>	
-    <%= f.text_area :refund_policy, rows: "3" %>
-
-
+	</div>
   </div>
-  <div class="field">
-	<%= f.label :size, "Elige la talla" %>
-	<%= f.select :size, ['CH','M','GR','Unitalla'], :selected => 'CH' %>
+	<p style="margin-top:-90px">	
+	<%= f.text_area :refund_policy, rows: "3" %>
+	</p>
+ <div class="field">
+    <%= f.label :size_tokens, "*información de tallas/medidas" %>
+    <%= f.text_field :size_tokens, data: {load: @product.sizes}%>
   </div>
   <div class="field">
 	<%= f.label :quantity, "Cantidad" %>
     <%= f.number_field :quantity, :in => 1..5 %>
   </div>
-  
-  <div class="field">
+   
+  <div class="field" style="height:20px">
 		<p style="float:left">
 			<%= f.label :tag_list, "*agrega tus tags" %>
 		</p>		
 			<i style="margin-left: 5%" id="tag_info" class="icon-info-sign icon-black"></i>
-			<div class="popover fade top in" id="pop_tag" style="display:none; position: absolute; top: 555px; left: 170px;">
+			<div class="popover fade top in" id="pop_tag" style="display:none; position: relative; top:-120px;;">
 				<div class="arrow">
 				</div>
 				<div class="popover-inner">
 					<div class="popover-content">
-						<p>¿Qué palabras describen tu producto?(separalas por comas)</p>
+						<p>¿Qué palabras describen a tu producto?(separalas por comas)</p>
 					</div>
 				</div>
 			</div>
+	  </div>
+	
 		<p>
-		    
-		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json %>
+		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json, :style => "float:left" %>
 		</p>
 		<div class="actions">
 			<%= f.submit "Update Product", class: "btn btn-large btn-primary" %>
-			
 		</div>
-	
-  </div>
-
   
 </div>
 
@@ -102,8 +106,7 @@
 				<% @paintings.each_with_index do |painting, index| %>
 					<% if index >= 1%>
 				<%= content_tag "div", id:"paintings", data: {id: painting.id } do %>
-				 <li class="smallImage">
-					<div class="small_image" id="painting_<%= painting.id%>">
+				 <li id="smallImage" class="painting_<%= painting.id%>">
 					<%= image_tag(painting.image_url(:thumb))%>
 						<div class="actions" id="remove_painting_<%= painting.id %>">
 							<%= link_to image_tag("close.png"), painting, method: :delete, remote: true, id: "remove" %>
@@ -117,10 +120,7 @@
 		<% end %>
 				
 		</ul>
-			
-		</div>
-
-
+	</div>
 
 <script id="template-upload" type="text/x-tmpl">
 <div id="name" style="display:none">
@@ -135,3 +135,12 @@
 </script>
 
 
+<script type="text/javascript">
+$("#product_form").keypress(function (evt) {
+	//Deterime where our character code is coming from within the event
+	var charCode = evt.charCode || evt.keyCode;
+	if (charCode  == 13) { //Enter key's keycode
+	return false;
+	}
+});
+</script>

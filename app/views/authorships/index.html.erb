@@ -1,0 +1,25 @@
+<h1>Listing authorships</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Size</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @authorships.each do |authorship| %>
+  <tr>
+    <td><%= authorship.product_id %></td>
+    <td><%= authorship.size_id %></td>
+    <td><%= link_to 'Show', authorship %></td>
+    <td><%= link_to 'Edit', edit_authorship_path(authorship) %></td>
+    <td><%= link_to 'Destroy', authorship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Authorship', new_authorship_path %>

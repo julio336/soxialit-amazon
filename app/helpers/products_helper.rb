@@ -31,5 +31,14 @@ module ProductsHelper
        
      end
   end
-     
+  
+  def find_sizes(product)
+     size = product.all
+     sizes = []
+     size.each do |x|
+        sizes << x.name
+     end
+     sizes.join(' - ')
+  end
+  
 end

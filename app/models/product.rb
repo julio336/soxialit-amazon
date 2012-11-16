@@ -1,13 +1,18 @@
 class Product < ActiveRecord::Base
   belongs_to :user
   has_many :paintings
+  has_many :sizes
   
   attr_reader :tag_list
-  attr_accessible :color, :description, :material, :picture, :quantity, :refund_policy, :size, :title, :user_id
+  attr_reader :size_tokens
+  attr_accessible :color, :description, :material, :picture, :quantity, :refund_policy, :size, :title, :user_id, :brand, :price  
   attr_accessible :name, :image
   attr_accessible :tag_list
- # validates :color, :description, :tag_list, :material, :quantity, :refund_policy, :size, :title, :presence => true, :allow_blank => true, :on => :update
- # validates :color, :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
+  attr_accessible :size_tokens
+  
+  #validates :price, :numericality => {:greater_than_or_equal_to => 0.01}, :on => :update
+  #validates :color, :description, :tag_list, :material, :quantity, :refund_policy, :size, :title, :presence => true, :allow_blank => true, :on => :update
+  #validates :color, :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
   acts_as_taggable
   
   has_reputation :votes, source: :user, aggregated_by: :sum
@@ -18,5 +23,9 @@ class Product < ActiveRecord::Base
      mp_client = MercadoPago::Client.new(client_id, client_secret)
      payment = mp_client.create_preference(datos) 
    end
-  
+   
+   def size_tokens=(tokens)
+       self.size_ids = Size.ids_from_tokens(tokens)
+   end
+   
 end

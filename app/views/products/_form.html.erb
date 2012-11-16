@@ -15,6 +15,13 @@
     <%= f.text_field :title, placeholder: " *titulo" %>
   </div>
   <div class="field">
+    <%= f.text_field :brand, placeholder: " *marca" %>
+  </div>
+  <div class="field">
+	<%= f.label :price, "*precio" %>
+    <%= f.text_field :price, placeholder: " *0.00", :class => "span2", :style => "float:left" %><p>   MXN </p>
+  </div>
+  <div class="field">
     <%= f.text_area :description, rows: "4", placeholder: "*describe tu producto" %>
   </div>
   <div class="field">
@@ -24,12 +31,12 @@
     <%= f.text_field :material, placeholder: "*material" %>
   </div>
  
-  <div class="field">
+  <div class="field" style="height: 127px">
 	<p style="float:left">
 		<%= f.label :refund_policy, "*políticas de devolución" %>
 	</p>
 	<i style="margin-left: 5%" id="policy_info" class="icon-info-sign icon-black"></i>
-	<div class="popover fade top in" id="pop_policy" style="display:none; position: absolute; top: 260px; left: 215px;">
+	<div class="popover fade top in" id="pop_policy" style="display:none; position: relative; top: -165px; left:50px">
 		<div class="arrow">
 		</div>
 		<div class="popover-inner">
@@ -37,27 +44,26 @@
 				<p>Ejemplo: "No aplica.", "Solo si el producto esta dañado.", "Solo si después de 30 días no ha sido entregado"</p>
 			</div>
 		</div>
-	</div>	
-    <%= f.text_area :refund_policy, rows: "3" %>
-
-
+	</div>
   </div>
-  <div class="field">
-	<%= f.label :size, "Elige la talla" %>
-	<%= f.select :size, ['CH','M','GR','Unitalla'], :selected => 'CH' %>
-	
+	<p style="margin-top:-90px">	
+	<%= f.text_area :refund_policy, rows: "3" %>
+	</p>
+ <div class="field">
+    <%= f.label :size_tokens, "*información de tallas/medidas" %>
+    <%= f.text_field :size_tokens, data: {load: @product.sizes}%>
   </div>
   <div class="field">
 	<%= f.label :quantity, "Cantidad" %>
     <%= f.number_field :quantity, :in => 1..5 %>
   </div>
    
-  <div class="field">
+  <div class="field" style="height:20px">
 		<p style="float:left">
 			<%= f.label :tag_list, "*agrega tus tags" %>
 		</p>		
 			<i style="margin-left: 5%" id="tag_info" class="icon-info-sign icon-black"></i>
-			<div class="popover fade top in" id="pop_tag" style="display:none; position: absolute; top: 555px; left: 170px;">
+			<div class="popover fade top in" id="pop_tag" style="display:none; position: relative; top:-120px;;">
 				<div class="arrow">
 				</div>
 				<div class="popover-inner">
@@ -66,16 +72,14 @@
 					</div>
 				</div>
 			</div>
+	  </div>
+	
 		<p>
-		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json %>
+		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json, :style => "float:left" %>
 		</p>
 		<div class="actions">
 			<%= f.submit "Create Product", class: "btn btn-large btn-primary" %>
-			
 		</div>
-	
-  </div>
-
   
 </div>
 
@@ -95,7 +99,7 @@
 		<% end %>
 	</div>
 	<ul id="productImagesSortable">
-		<li class="smallImage" id="image_small">
+		<li id="image_small">
 		</li>
 	</ul>
 </div>
@@ -111,6 +115,17 @@
 		</div
 	</div>
 </div>
+
+</script>
+
+<script type="text/javascript">
+$("#product_form").keypress(function (evt) {
+//Deterime where our character code is coming from within the event
+	var charCode = evt.charCode || evt.keyCode;
+	if (charCode  == 13) { //Enter key's keycode
+	return false;
+	}
+});
 </script>
 
 
