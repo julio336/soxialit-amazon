@@ -28,8 +28,5 @@ class Product < ActiveRecord::Base
        self.size_ids = Size.ids_from_tokens(tokens)
    end
    
-   def tag_list=(tokens)
-         self.size_ids = Tag.ids_from_tokens(tokens)
-     end
-   
+  
 end

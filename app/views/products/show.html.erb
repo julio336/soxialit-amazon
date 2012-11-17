@@ -16,8 +16,9 @@
 							<% end %>
 						<% end %>
 				</ul>
+	
 	</div>
-
+	
 <div style="margin-top:5%" class="span5">
 	<div class="well" style="background-color:white">
 		<div class="description-main">
@@ -46,7 +47,7 @@
 			</div>
 			
 			<%= number_to_currency(@product.price) %>
-			<div style="margin-left:20%; margin-top:-5%">
+			<div style="margin-left:25%; margin-top:-5%">
 				<%= link_to "Comprar", comprar_path(:product_id => @product.id), {:id => "modal", :rel => "tab", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true, :class => 'btn btn-success'} %>
 			</div>
 			<br/>
@@ -82,4 +83,5 @@
 	</div>
 	
 </div>
+
 </div>
