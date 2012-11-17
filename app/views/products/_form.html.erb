@@ -75,7 +75,7 @@
 	  </div>
 	
 		<p>
-		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json %>
+		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", data: {load: @product.sizes} %>
 		<div class="token-input-dropdown-facebook" style="display: none; position: absolute; top: 306px; left: 340px; width: 400px; z-index: 999;"></div>
 		</p>
 		<div class="actions">

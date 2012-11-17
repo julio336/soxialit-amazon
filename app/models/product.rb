@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
   
   validates :price, :numericality => {:greater_than_or_equal_to => 0.01}, :on => :update
   validates :color, :description, :material, :quantity, :refund_policy, :title, :brand, :presence => true, :allow_blank => true, :on => :update
-  validates :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
+  #validates :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
   acts_as_taggable
   
   has_reputation :votes, source: :user, aggregated_by: :sum
@@ -27,5 +27,9 @@ class Product < ActiveRecord::Base
    def size_tokens=(tokens)
        self.size_ids = Size.ids_from_tokens(tokens)
    end
+   
+   def tag_list=(tokens)
+         self.size_ids = Tag.ids_from_tokens(tokens)
+     end
    
 end

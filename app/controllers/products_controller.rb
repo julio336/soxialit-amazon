@@ -86,7 +86,7 @@ class ProductsController < ApplicationController
     #@product = Product.tagged_with(params[:tag_list])
      respond_to do |format|
       if @product.update_attributes(params[:product])
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to @product }
         format.json { head :no_content }
       else
         format.html { render action: "new" }

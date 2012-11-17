@@ -22,7 +22,7 @@
 $(function () {
   $('#product_tag_list').tokenInput('/products/tags.json', { 
     crossDomain: false,
-    prePopulate: $('#product_tag_list').data('pre'),
+    prePopulate: $('#product_tag_list').data('load'),
     theme: 'facebook',
   });
 });
