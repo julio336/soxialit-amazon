@@ -7,7 +7,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   include Sprockets::Helpers::RailsHelper
   include Sprockets::Helpers::IsolatedHelper
 
-  storage :file
+  storage :fog
   
   include CarrierWave::MimeTypes
   process :set_content_type
