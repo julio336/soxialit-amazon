@@ -1,9 +1,9 @@
 <div class="hero-unit" style="background: white">
 	<% if user_signed_in? %>
-		<h2><strong style="color: #00B174"><%= current_user.username %> </strong>, prueba la aplicación:</h2>
+		<h2><strong><%= current_user.username %> </strong>, prueba la aplicación:</h2>
 		<p style="text-align: center"><%= link_to "Crea un producto", new_product_path, :class => "button-want" %></p>
 		<% else %>
-			<h1><strong style="color: #00B174">Desginer </strong> bienvenido a Soxialit</h1>
+			<h1><strong style="color: #00B174">Designer </strong> bienvenido a Soxialit</h1>
 			<br/>
 			<p> Esta app ha sido creada para conocer tus necesidades y problemas.</p>
 			<p>Continúa con nosotros. </p>
