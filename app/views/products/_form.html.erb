@@ -92,7 +92,7 @@
 				
 </div>
 <div class="span3">
-	<div class="field">
+	<div class="field" id="file_image">
 		<%= form_for(Painting.new, :remote => true) do |f| %>
 		  <%= f.label :image, "*agrega tus fotos(máximo 4 fotos):", :class => "label_fotos" %>
 		  <%= f.hidden_field :product_id, :value => @product.id %>

@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
   attr_accessible :size_tokens
   
   validates :price, :numericality => {:greater_than_or_equal_to => 0.01}, :on => :update
-  validates :color, :description, :material, :quantity, :refund_policy, :title, :brand, :presence => true, :allow_blank => true, :on => :update
+  validates :color, :description, :material, :quantity, :refund_policy, :title, :brand, :presence => { :message => "*dato requerido" }, :allow_blank => true, :on => :update
   #validates :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
   acts_as_taggable
   

@@ -7,7 +7,7 @@
 			</div>
 				<ul id="productImagesSortable" style="float:right;">
 						<% @product.paintings.each_with_index do |painting, index| %>
-							<% if index >= 0%>
+							<% if index < 4 %>
 								<%= content_tag "div", class:"paintings", data: {id: painting.id } do %>
 						 			<li id="smallImage" class="painting_<%= painting.id%>">
 										<%= image_tag(painting.image_url(:thumb))%>

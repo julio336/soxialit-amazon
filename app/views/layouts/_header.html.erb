@@ -5,11 +5,13 @@
 				<nav>
 					<ul class="nav pull-right">
               			<% if user_signed_in? %>
-				            <li style="color:green; margin-top:10px">Signed in as <%= current_user.email %>. 
+				           <!--<li style="color:green; margin-top:10px">Signed in as <%= current_user.email %>. 
 				            	Not you? 
-				            </li>
-				            <li> <%= link_to "Sign out", destroy_user_session_path, method: "delete" %></li>
-				            <li id="fat-menu" class="dropdown">
+				            </li> -->
+							<li><%= link_to "Productos Random", products_path, :style => "color: #00B174;" %></li>
+							<li> <%= link_to "Crea un producto", new_product_path, style:"color: #ff5a54" %>
+							<li> <%= link_to "Sign out", destroy_user_session_path, method: "delete" %></li>
+				           <!-- <li id="fat-menu" class="dropdown"> 
 				              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				                Account <b class="caret"></b>
 				              </a>
@@ -20,12 +22,12 @@
 				                <li>
 				                  <%= link_to "Sign out", destroy_user_session_path, method: "delete" %>
 				                </li>
-				              </ul>
-				            </li>
+							  </ul>
+				            </li> -->
 				         <% else %>
-				            <%= link_to "Sign up", new_user_registration_path %> or
+				         <!--   <%= link_to "Sign up", new_user_registration_path %> or
 						    <%= link_to "Sign in", new_user_session_path %>
-						    <%= link_to 'Login with Facebook', '/auth/facebook/' %>
+						    <%= link_to 'Login with Facebook', '/auth/facebook/' %>  -->
 				         <% end %>
               		</ul>
               	</nav>
