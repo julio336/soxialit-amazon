@@ -1,5 +1,7 @@
 DeviseFacebook::Application.routes.draw do
 
+  resources :feedbacks
+
   resources :sizes
 
   resources :paintings

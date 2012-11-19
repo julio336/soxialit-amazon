@@ -36,7 +36,7 @@
 		<%= f.label :refund_policy, "*políticas de devolución" %>
 	</p>
 	<i style="margin-left: 5%" id="policy_info" class="icon-info-sign icon-black"></i>
-	<div class="popover fade top in" id="pop_policy" style="display:none; position: relative; top: -165px; left:50px">
+	<div class="popover fade top in" id="pop_policy" style="display:none; position: relative; top: -165px; left:25px">
 		<div class="arrow">
 		</div>
 		<div class="popover-inner">
@@ -63,7 +63,7 @@
 			<%= f.label :tag_list, "*agrega tus tags" %>
 		</p>		
 			<i style="margin-left: 5%" id="tag_info" class="icon-info-sign icon-black"></i>
-			<div class="popover fade top in" id="pop_tag" style="display:none; position: relative; top:-120px;;">
+			<div class="popover fade top in" id="pop_tag" style="display:none; position: relative; top:-120px; left: -15px;">
 				<div class="arrow">
 				</div>
 				<div class="popover-inner">
@@ -79,7 +79,7 @@
 		<div class="token-input-dropdown-facebook" style="display: none; position: absolute; top: 306px; left: 340px; width: 400px; z-index: 999;"></div>
 		</p>
 		<div class="actions">
-			<%= f.submit "Create Product", class: "btn btn-large btn-primary" %>
+			<%= f.submit "Crear Producto", class: "button-want" %>
 		</div>
   
 </div>
@@ -87,14 +87,15 @@
 <% end %>
 <div style="margin-top: -20px" class="span6" id="mainImage">
 	<div class="defaultMainImage">
-		
 	</div>
+	<div id="ajax-status" style="float:left; display:none; margin-left:50%; margin-top:-100%; z-index: 3000"><%= image_tag("ajax-loader.gif") %></div>
 				
 </div>
 <div class="span3">
 	<div class="field" id="file_image">
 		<%= form_for(Painting.new, :remote => true) do |f| %>
 		  <%= f.label :image, "*agrega tus fotos(máximo 4 fotos):", :class => "label_fotos" %>
+		  <%= f.label :image, "Tardan un poco al cargar...", :class => "label_fotos" %>
 		  <%= f.hidden_field :product_id, :value => @product.id %>
 		  <%= f.file_field :image, multiple: true, name: "painting[image]"%>
 		<% end %>

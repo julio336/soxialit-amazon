@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :products, :dependent => :destroy
   has_many :evaluations, class_name: "RSEvaluation", as: :source
+  has_many :feedbacks, :dependent => :destroy
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

@@ -34,9 +34,16 @@ $(function(){
 	});
  });
 
-
-
-
+$(function() {
+  $('#ajax-status')
+    .hide()  // hide it initially.
+    .ajaxStart(function() {
+      $(this).show(); // show on any Ajax event.
+    })
+    .ajaxStop(function() {
+      $(this).hide(); // hide it when it is done.
+  });
+});
 
 /*
  * jQuery Plugin: Tokenizing Autocomplete Text Entry
