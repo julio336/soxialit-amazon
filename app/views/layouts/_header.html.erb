@@ -8,7 +8,7 @@
 				           <!--<li style="color:green; margin-top:10px">Signed in as <%= current_user.email %>. 
 				            	Not you? 
 				            </li> -->
-							<li><%= link_to "Feedback", feedbacks_path %></li>
+							<li><%= link_to "Escribe aquí tus comentarios", feedbacks_path %></li>
 							<li><%= link_to "Productos Random", products_path, :style => "color: #00B174;" %></li>
 							<li> <%= link_to "Crea un producto", new_product_path, style:"color: #ff5a54" %>
 							<li> <%= link_to "Sign out", destroy_user_session_path, method: "delete" %></li>
