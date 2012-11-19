@@ -34,6 +34,15 @@ $(function(){
 	});
  });
 
+$(function(){
+	$('#product_tag_tokens').tokenInput('/products/tags.json', {
+    crossDomain: false,
+    prePopulate: $('#product_tag_tokens').data('load')
+	});
+ });
+
+
+
 $(function() {
   $('#ajax-status')
     .hide()  // hide it initially.

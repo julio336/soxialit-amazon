@@ -53,6 +53,7 @@
     <%= f.label :size_tokens, "*información de tallas/medidas" %>
     <%= f.text_field :size_tokens, data: {load: @product.sizes}%>
   </div>
+
   <div class="field">
 	<%= f.label :quantity, "Cantidad" %>
     <%= f.number_field :quantity, :in => 1..5 %>
