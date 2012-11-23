@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-=begin
+
   def edit
     @product = current_user.products.find(params[:id])
     @paintings = @product.paintings.all
@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
           format.js 
       end
   end
-=end
+
 
   # POST /products
   # POST /products.json
