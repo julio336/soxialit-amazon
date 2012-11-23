@@ -12,31 +12,37 @@
   <% end %>
 <div sytle="padding-top: 2%" id="product_form" class="span3">
   <div class="field">
-    <%= f.text_field :title, placeholder: " *titulo" %>
+	<%= f.label :title, "*titulo" %>
+	<%= f.text_field :title, placeholder: "" %>
   </div>
   <div class="field">
-    <%= f.text_field :brand, placeholder: " *marca" %>
+	<%= f.label :brand, "*marca" %>
+    <%= f.text_field :brand, placeholder: "" %>
   </div>
   <div class="field">
 	<%= f.label :price, "*precio" %>
     <%= f.text_field :price, placeholder: " 0.00", :class => "span2", :style => "float:left" %><p>   MXN </p>
   </div>
+  <br/>
   <div class="field">
-    <%= f.text_area :description, rows: "4", placeholder: "*describe tu producto" %>
+	<%= f.label :description, "*describe tu producto" %>
+    <%= f.text_area :description, rows: "4", placeholder: "" %>
   </div>
   <div class="field">
-    <%= f.text_field :color, placeholder: "*color" %>
+	<%= f.label :color, "*color" %>
+    <%= f.text_field :color, placeholder: "" %>
   </div>
   <div class="field">
-    <%= f.text_field :material, placeholder: "*material" %>
+	<%= f.label :material, "*material" %>
+    <%= f.text_field :material, placeholder: "" %>
   </div>
  
   <div class="field" style="height: 127px">
 	<p style="float:left">
-		<%= f.label :refund_policy, "*políticas de devolución" %>
+		<%= f.label :refund_policy, "*establece tus políticas de devolución" %>
 	</p>
-	<i style="margin-left: 5%" id="policy_info" class="icon-info-sign icon-black"></i>
-	<div class="popover fade top in" id="pop_policy" style="display:none; position: relative; top: -165px; left:25px">
+	<i style="margin-left: 5%; margin-top: -10%" id="policy_info" class="icon-info-sign icon-black"></i>
+	<div class="popover fade top in" id="pop_policy" style="display:none; position: relative; top: -165px; left:-103px">
 		<div class="arrow">
 		</div>
 		<div class="popover-inner">
@@ -55,7 +61,8 @@
   </div>
   <br/>
   <div class="field">
-    <%= f.number_field :quantity, :placeholder => "cantidad", :in => 1..5 %>
+	<%= f.label :quantity, "*cantidad" %>
+    <%= f.number_field :quantity, :placeholder => "", :in => 1..5 %>
   </div>
    
   <div class="field" style="height:20px">
@@ -134,7 +141,7 @@
 	<div class="field" id="file_image">
 		<%= form_for(Painting.new, :remote => true) do |f| %>
 		  <%= f.label :image, "*agrega tus fotos(máximo 4 fotos):", :class => "label_fotos" %>
-		  <%= f.label :image, "Tardan un poco al cargar...", :class => "label_fotos" %>
+		  <%= f.label :image, "La primera imagen, es la principal del producto", :class => "label_fotos" %>
 		  <%= f.hidden_field :product_id, :value => @product.id %>
 		  <%= f.file_field :image, multiple: true, name: "painting[image]"%>
 		<% end %>
