@@ -7,7 +7,6 @@ window.onscroll = function(){
 $('#modal-id').fadeIn('fast');
 $('#modal-id').html("<%= escape_javascript(render :partial => 'comprar', :object => @product) %>");
 $('#modal-id').click(function(){
-	$('#modal-id').fadeOut('fast');
 	window.onscroll = null;
 	document.documentElement.style.overflowY = "scroll";
 });

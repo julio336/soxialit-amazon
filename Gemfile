@@ -20,6 +20,11 @@ gem 'activerecord-reputation-system', require: 'reputation_system'
 gem 'mercadopago'
 gem 'client_side_validations'
 gem 'fog'
+gem "net-ssh"
+gem 'nokogiri'
+gem 'rails3-jquery-autocomplete'
+
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

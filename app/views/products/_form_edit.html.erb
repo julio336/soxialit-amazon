@@ -77,6 +77,45 @@
 		<p>
 		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json, :style => "float:left" %>
 		</p>
+			<div>
+				<%= link_to "opciones de envío", envio_path(:product_id => @product.id), {:id => "modal", :rel => "tab", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true, :class => 'btn'} %>
+			</div>
+			<br/>
+			<div style="display:none" id="campo_enviodf">
+				<p>
+					<div style="float:left">Envío en DF $</div>
+					<%= f.text_field :envio_df, :class => "span2", :style => "display:none" %>
+
+				</p>
+			</div>
+			<div style="display:none" id="campo_envioint">
+				<p>
+					<div style="float:left">Envío interior del país $</div>
+					<%= f.text_field :envio_int, :class => "span2", :style => "display:none" %>
+				</p>
+			</div>
+			<div style="display:none" id="campo_cp">
+				<p>
+					<div style="float:left">Recoger en CP: </div>
+				</p>
+			</div>
+			<div style="display:none;" id="campo_estafeta">
+				<div>Envío por Estafeta</div>
+				<div id="estafeta_tipo" class="forma_estafeta"></div>
+				<div id="estafeta_peso" class="forma_estafeta"></div>
+				<div id="estafeta_alto" class="forma_estafeta"></div>
+				<div id="estafeta_largo" class="forma_estafeta"></div>
+				<div id="estafeta_ancho" class="forma_estafeta"></div>
+
+				<%= f.text_field :cp, :class => "span2", :style => "display:none" %>
+				<%= f.text_field :tipo_envio, :class => "span2", :style => "display:none" %>
+				<%= f.text_field :peso, :class => "span2", :style => "display:none" %>
+				<%= f.text_field :alto, :class => "span2", :style => "display:none" %>
+				<%= f.text_field :largo, :class => "span2", :style => "display:none" %>
+				<%= f.text_field :ancho, :class => "span2", :style => "display:none" %>
+
+			</div>
+			<hr>
 		<div class="actions">
 			<%= f.submit "Update Product", class: "btn btn-large btn-primary" %>
 		</div>
@@ -90,7 +129,11 @@
 		  <% unless @paintings.first.nil? %>
 				<div class="mainpicture" id="painting_<%= @paintings.first.id %>">
 				<%= image_tag(@paintings.first.image_url(:timeline))  %>
+				<% else %>
+				<div class="defaultMainImage">
+				</div>
 		  <% end %>
+		<div id="ajax-status" style="float:left; display:none; margin-left:50%; margin-top:-100%; z-index: 3000"><%= image_tag("ajax-loader.gif") %></div>
 		</div>
 	</div>
 	<div class="span3">

@@ -6,18 +6,17 @@ class Product < ActiveRecord::Base
   attr_reader :tag_list
   attr_reader :size_tokens
   attr_reader :tag_tokens
-  attr_accessible :color, :description, :material, :picture, :quantity, :refund_policy, :size, :title, :user_id, :brand, :price  
+  attr_accessible :tipo_envio, :cp, :peso, :alto, :largo, :ancho, :envio_int, :envio_df, :color, :description, :material, :picture, :quantity, :refund_policy, :size, :title, :user_id, :brand, :price  
   attr_accessible :name, :image
   attr_accessible :tag_list
   attr_accessible :size_tokens
   attr_accessible :tag_tokens
   
-  
   validates :price, :numericality => {:greater_than_or_equal_to => 0.01}, :on => :update
   validates :color, :description, :material, :quantity, :refund_policy, :title, :brand, :presence => { :message => "*dato requerido" }, :allow_blank => true, :on => :update
-  #validates :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
+  validates :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
   acts_as_taggable
-  
+ 
   has_reputation :votes, source: :user, aggregated_by: :sum
   
   def mercadopago_url(datos)
@@ -31,5 +30,8 @@ class Product < ActiveRecord::Base
        self.size_ids = Size.ids_from_tokens(tokens)
    end
    
+   def tag_tokens=(tokens)
+         self.size_ids = Tag.ids_from_tokens(tokens)
+     end
   
 end

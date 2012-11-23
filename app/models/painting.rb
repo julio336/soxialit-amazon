@@ -3,4 +3,7 @@ class Painting < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   
   belongs_to :product
+  
+  validates_presence_of :image
+  
 end

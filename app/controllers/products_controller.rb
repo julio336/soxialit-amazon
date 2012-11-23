@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
+  
   def index
    if params[:tag]
        @products = Product.tagged_with(params[:tag])
@@ -49,6 +50,7 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
+=begin
   def edit
     @product = current_user.products.find(params[:id])
     @paintings = @product.paintings.all
@@ -60,6 +62,7 @@ class ProductsController < ApplicationController
           format.js 
       end
   end
+=end
 
   # POST /products
   # POST /products.json
@@ -101,7 +104,7 @@ class ProductsController < ApplicationController
           return_url: product_url(product),
           cancel_url: products_url,
           description: product.title,
-          amount: "20.00",
+          amount: product.price,
           currency: "MXN"
          )
          response = ppr.checkout
@@ -114,7 +117,38 @@ class ProductsController < ApplicationController
     
   def comprar
      @product = Product.find(params[:product_id])
+     user_cp = find_user_product(@product)
+     current_user_cp = current_user.user_cp
+     logger.debug "#{user_cp}\n\n\n\n\n\n"
+     logger.debug "#{current_user_cp}\n\n\n\n\n\n"
+     if @product.tipo_envio == "sobre"
+        url = "http://rastreo2.estafeta.com:7001/Tarificador/admin/TarificadorAction.do?dispatch=doGetTarifas&cCodPosOri=#{user_cp}&cCodPosDes=#{current_user_cp}&cTipoEnvio=#{@product.tipo_envio}&cIdioma=Esp"
+     else
+        url = "http://rastreo2.estafeta.com:7001/Tarificador/admin/TarificadorAction.do?dispatch=doGetTarifas&cCodPosOri=#{user_cp}&cCodPosDes=#{current_user_cp}&cTipoEnvio=#{@product.tipo_envio}&cIdioma=Esp&nPeso=#{@product.peso}&nLargo=#{@product.largo}&nAncho=#{@product.ancho}&nAlto=#{@product.alto}"
+     end
+     logger.debug "#{url}\n\n\n\n\n\n"
+     require 'net/http'
+     require 'rubygems'
+     require 'nokogiri'
+     require 'open-uri'
+     
+     doc = Nokogiri::HTML(open(url))
+     @dias = []
+     doc.css(':nth-child(6) .style5 strong , :nth-child(7) strong, :nth-child(8) strong').each do |node|
+          @dias.push(node.text)
+     end 
+     logger.debug "#{@dias}\n\n\n\n\n\n"
+      
+     @tarifas = []
+        doc.css(':nth-child(6) td:nth-child(8) , :nth-child(7) :nth-child(8), :nth-child(8) td:nth-child(8)').each do |node|
+        @tarifas.push(node.text)
+     end
+     logger.debug "#{@tarTer2}\n\n\n\n\n\n"
   end
+  
+  def envio
+      @product = Product.find(params[:product_id])
+   end
   
   def vote
       value = params[:type] == "up" ? 1 : -1
@@ -135,7 +169,7 @@ class ProductsController < ApplicationController
            "title" => product.title,
            "description" => product.description,
            "quantity" => 1,
-           "unit_price" => 500.00,
+           "unit_price" => product.price.to_i,
            "currency_id" => "MEX",
            "picture_url" => "http://i1266.photobucket.com/albums/jj523/JulioAhuactzin/Safari3_zpsb24612a1.png"
          }
@@ -204,7 +238,12 @@ class ProductsController < ApplicationController
           format.json { render :json => @tags.collect{|t| {:id => t.name, :name => t.name }}}
        end
     end   
-    
+
+    def find_user_product(product)
+         id_user = product.user_id
+         user = User.find(id_user)
+         user.user_cp
+    end    
     
 end
 

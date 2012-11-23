@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118234819) do
+ActiveRecord::Schema.define(:version => 20121121230111) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(:version => 20121118234819) do
     t.datetime "updated_at",                                  :null => false
     t.string   "brand"
     t.decimal  "price",         :precision => 8, :scale => 2
+    t.decimal  "envio_df"
+    t.decimal  "envio_int"
+    t.string   "cp"
+    t.integer  "peso"
+    t.integer  "alto"
+    t.integer  "largo"
+    t.integer  "ancho"
+    t.string   "tipo_envio"
   end
 
   add_index "products", ["user_id"], :name => "index_products_on_user_id"
@@ -152,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20121118234819) do
     t.string   "location"
     t.string   "website"
     t.text     "bio"
+    t.text     "user_cp"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

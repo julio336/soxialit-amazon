@@ -53,10 +53,9 @@
     <%= f.label :size_tokens, "*información de tallas/medidas" %>
     <%= f.text_field :size_tokens, data: {load: @product.sizes}%>
   </div>
-
+  <br/>
   <div class="field">
-	<%= f.label :quantity, "Cantidad" %>
-    <%= f.number_field :quantity, :in => 1..5 %>
+    <%= f.number_field :quantity, :placeholder => "cantidad", :in => 1..5 %>
   </div>
    
   <div class="field" style="height:20px">
@@ -76,9 +75,48 @@
 	  </div>
 	
 		<p>
-		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", data: {load: @product.sizes} %>
-		<div class="token-input-dropdown-facebook" style="display: none; position: absolute; top: 306px; left: 340px; width: 400px; z-index: 999;"></div>
+		    <%= f.text_field :tag_list, placeholder: "*agrega tus tags", "data-pre" => @product.tags.map(&:attributes).to_json %>
 		</p>
+		
+		<div>
+			<%= link_to "opciones de envío", envio_path(:product_id => @product.id), {:id => "modal", :rel => "tab", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true, :class => 'btn'} %>
+		</div>
+		<br/>
+		<div style="display:none" id="campo_enviodf">
+			<p>
+				<div style="float:left">Envío en DF $</div>
+			    
+			</p>
+		</div>
+		<div style="display:none" id="campo_envioint">
+			<p>
+				<div style="float:left">Envío interior del país $</div>
+			</p>
+		</div>
+		<div style="display:none" id="campo_cp">
+			<p>
+				<div style="float:left">Recoger en CP: </div>
+			</p>
+		</div>
+		<div style="display:none;" id="campo_estafeta">
+			<div>Envío por Estafeta</div>
+			<div id="estafeta_tipo" class="forma_estafeta"></div>
+			<div id="estafeta_peso" class="forma_estafeta"></div>
+			<div id="estafeta_alto" class="forma_estafeta"></div>
+			<div id="estafeta_largo" class="forma_estafeta"></div>
+			<div id="estafeta_ancho" class="forma_estafeta"></div>
+			
+			<%= f.text_field :envio_df, :class => "span2", :style => "display:none" %>
+			<%= f.text_field :envio_int, :class => "span2", :style => "display:none" %>
+			<%= f.text_field :cp, :class => "span2", :style => "display:none" %>
+			<%= f.text_field :tipo_envio, :class => "span2", :style => "display:none" %>
+			<%= f.text_field :peso, :class => "span2", :style => "display:none" %>
+			<%= f.text_field :alto, :class => "span2", :style => "display:none" %>
+			<%= f.text_field :largo, :class => "span2", :style => "display:none" %>
+			<%= f.text_field :ancho, :class => "span2", :style => "display:none" %>
+			
+		</div>
+		<hr>
 		<div class="actions">
 			<%= f.submit "Crear Producto", class: "button-want" %>
 		</div>

@@ -58,7 +58,6 @@
 			<div class="description-medium"> <%= find_sizes(@product.sizes) %> </div><br/s>
 			<div class="description-low"> Tags: </div><br/>
 			<div class="description-tags"><%= raw @product.tag_list.map { |t| link_to t, tag_path(t) }.join(' - ') %></div>
-			
 				
 		</div>
 		<br/>
@@ -74,12 +73,19 @@
 		<hr>
 		<div class="description-low"> Política de devoluciones</div><br/>
 		<div class="description-medium"> <%= @product.refund_policy %> </div>
-	<!--	<p>
-		  <b>User:</b>
-		  <%= @product.user_id %>
-		</p> -->
-
-	
+		<hr>
+		<div class="description-low"> Opciones de envío</div><br/>
+			<% if @product.envio_df.nil? %>
+				<% else %>
+				<div class="description-medium">Envío en DF:  <%= number_to_currency(@product.envio_df) %> </div>
+			<% end %>
+			<% if @product.envio_int.nil? %>
+				<% else %>
+				<div class="description-medium">Envío interior del país:  <%= number_to_currency(@product.envio_int) %> </div>
+			<% end %>
+			<% if @product.cp.length > 0 %>
+				<div class="description-medium">Recógelo en CP: <%= @product.cp %> (gratis)</div>
+			<% end %>
 	</div>
 	
 </div>

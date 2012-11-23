@@ -41,4 +41,5 @@ module ProductsHelper
      sizes.join(' - ')
   end
   
+  
 end

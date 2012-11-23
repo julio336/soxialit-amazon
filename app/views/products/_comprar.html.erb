@@ -1,21 +1,139 @@
-<div class="modal-soxialit">
-  <div class="modal-body center">
-	<h1>Detalles del producto</h1>
+<div class="modal-compra">
+  <div class="modal-body">
+	<h1>Resumen de tu compra</h1>
+	<hr>
+	<div class="row">
+		<div class="span2">
+			<%= image_tag(@product.paintings.first.image_url(:thumb))%>
+		</div>
+		<div class="span2">
+			<strong><%= @product.title%></strong>
+			<div id="tipo_envio">
+			</div>
+		</div>
+		<div id="product_price" class="span2">	
+			<%= number_to_currency(@product.price) %>
+			<div id="costo_envio">
+			</div>
+			<hr>
+			<div id="total">
+				<div>Total: </div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="span3">
+	  <form style="float:left" id="envios_form">
+		<% if @product.envio_df.nil? %>
+			<% else %>
+			<strong>
+				Elige que envío deseas:
+			</strong>
+			<br/>
+			<td><input type="radio" class="Envio en DF" name="optionsRadios" id="optionEnvDf" value='<%= @product.envio_df %>' unchecked> Envío en DF - </td>
+			<td><%= number_to_currency(@product.envio_df)%></td>
+		<% end %>
+		<br/>
+		<% if @product.envio_int.nil? %>
+			<% else %>
+    		<td><input type="radio" class="Envio al interior" name="optionsRadios" id="optionEnvInt" value='<%= @product.envio_int %>' unchecked> Envío al interior del país - </td>
+			<%= number_to_currency(@product.envio_int)%>
+		<% end %>
 	<br/>
-	<br/>
-	<br/>
-	<h3>Medios de pago: </h3>
-	<br/>
-	<div id="name" class="span6 offset2">
+	<% if @product.tipo_envio.nil? && @product.peso.nil?%>
+	<% else %>
+		<strong>
+			Estafeta
+		</strong>
+		<br/>
+		<tbody>
+			<tr>
+				<% @dias.zip(@tarifas).each do |dia, tarifa| %>
+					<div>
+						<input type="radio" name="optionsRadios" id='Estafeta <%= dia %>' class="estafeta" value='<%= tarifa %>' unchecked> <%= dia %> - 
+							$ <%= tarifa %>
+					</div>
+				<% end %>
+			</tr>
+		</tbody>
+		<div class="span1">
+			<button type="submit" class="btn">Establecer</button>
+		 </div>
+	<% end %>
+	</form>
+	</div>
+	<div style="display:none" id="pagos" class="span4">
 		<div id="paypal_checkout" style="width:150px; float:left;">
 			<%= link_to "Pagar con Paypal", paypal_checkout_path(:product_id => @product.id), :class => "btn btn-success" %>
-			<%= image_tag("paypal.png")%>
+			<div style="width:100px"><%= image_tag("paypal.png")%></div>
 		</div>
-		<div id="mercadopago_checkout" style="width:200px; float:right">
-		<!--	<%= link_to "Pagar con MercadoPago", "#", :class => "btn btn-success" %> -->
-		<p><%= link_to "Pagar con MercadoPago", mercadopago_checkout_path(product_id: @product.id), :class => "btn btn-success" %></p>
-			<%= image_tag("mercadopago.png")%>
+		<div id="mercadopago_checkout" style="width:200px; float:left">
+			<!--	<%= link_to "Pagar con MercadoPago", "#", :class => "btn btn-success" %> -->
+			<p><%= link_to "Pagar con MercadoPago", mercadopago_checkout_path(product_id: @product.id), :class => "btn btn-success" %></p>
+				<div style="width:130px"><%= image_tag("mercadopago.png")%></div>
 		</div>
 	</div>
   </div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$('#envios_form').submit(function(){
+		$('#costo_envio').text('');
+		$('#tipo_envio').text('');
+		
+		
+		if(!$('#optionEnvDf').is(':checked')){
+		
+		}else{
+			$('#costo_envio').append('$ ' + $('#optionEnvDf').val());
+			$('#tipo_envio').append($('#optionEnvDf').attr('class'));
+		}
+		
+		if(!$('#optionEnvInt').is(':checked')){
+		
+		}else{
+			$('#costo_envio').append('$ ' + $('#optionEnvInt').val());
+			$('#tipo_envio').append($('#optionEnvInt').attr('class'));
+		}
+		
+		
+		if(!$('.estafeta:first').is(":checked")){
+		}else{
+				$('#costo_envio').append('$ ' + $('.estafeta:first').val());
+				$('#tipo_envio').append($('.estafeta:first').attr('id'));
+			}
+		
+		var b = document.getElementById('Estafeta Dia Sig'); //returns a HTML DOM Object	
+		if(!$(b).is(":checked")){
+		}else{
+			$('#costo_envio').append('$ ' + b.value);
+			$('#tipo_envio').append(b.id);
+		}
+		
+		var a = document.getElementById('Estafeta 2 Dias'); //returns a HTML DOM Object	
+		if(!$(a).is(":checked")){
+		}else{
+			$('#costo_envio').append('$ ' + a.value);
+			$('#tipo_envio').append(a.id);
+		}
+		
+		var c = document.getElementById('Estafeta Terrestre'); //returns a HTML DOM Object	
+		if(!$(c).is(":checked")){
+		}else{
+			$('#costo_envio').append('$ ' + c.value);
+			$('#tipo_envio').append(c.id);
+		}
+	/*	if(!$('#Estafeta Dia Sig.').is(':checked')){
+			}else{
+				$('#costo_envio').append('$ ' + $(this).val());
+				$('#tipo_envio').append($(this).attr('id'));
+		}	*/
+		$('#pagos').show();
+		return false;
+		
+	});
+});
+
+</script>
+

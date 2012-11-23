@@ -20,27 +20,25 @@
 //= require_tree .
 
 $(function () {
-  $('#product_tag_list').tokenInput('/products/tags.json', { 
+  $('#product_tag_list').tokenInput('/sizes.json', { 
     crossDomain: false,
-    prePopulate: $('#product_tag_list').data('load'),
+    prePopulate: $('#product_tag_list').data('pre'),
     theme: 'facebook',
+	 preventDuplicates: true,
+	 tokenValue: 'name', // defaults to 'id'
+  
+	 allowCustomEntry: true
+   
   });
 });
 
 $(function(){
 	$('#product_size_tokens').tokenInput('/sizes.json', {
     crossDomain: false,
+	 preventDuplicates: true,
     prePopulate: $('#product_size_tokens').data('load')
 	});
  });
-
-$(function(){
-	$('#product_tag_tokens').tokenInput('/products/tags.json', {
-    crossDomain: false,
-    prePopulate: $('#product_tag_tokens').data('load')
-	});
- });
-
 
 
 $(function() {
@@ -53,13 +51,3 @@ $(function() {
       $(this).hide(); // hide it when it is done.
   });
 });
-
-/*
- * jQuery Plugin: Tokenizing Autocomplete Text Entry
- * Version 1.6.0
- *
- * Copyright (c) 2009 James Smith (http://loopj.com)
- * Licensed jointly under the GPL and MIT licenses,
- * choose which one suits your project best!
- *
- */
