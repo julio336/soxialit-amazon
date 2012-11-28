@@ -108,6 +108,7 @@
 			<div class="description-medium">
 				Productos de <%= link_to @product.brand, user_path(@product.user_id) %>
 			</div>
+			
 			<% @products.each do |product| %>
 				<div style="padding:1%; width: 22.5%" class="span3">
 					<% if product.title.nil? %>

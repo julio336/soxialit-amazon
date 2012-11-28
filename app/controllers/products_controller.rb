@@ -33,7 +33,10 @@ class ProductsController < ApplicationController
     id = @product.user_id
     @user = User.find(id)
     @products = @user.products.all(:order => 'RANDOM()', :limit => 4)
-   
+    
+    #@items = avoid_nil(@user.products.all)
+    #@products = @items.find(:order => 'rating ASC', :limit => 2)
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @product }
