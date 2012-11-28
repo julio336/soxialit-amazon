@@ -124,16 +124,16 @@ class ProductsController < ApplicationController
     
   def envio_df 
    @product = Product.find(params[:id])
+   @product.update_attributes(:shipping => params[:envio])
+   @product.total_price = (@product.price + @product.shipping).to_i
+   @product.save
+ end
 =begin
-      logger.debug "parametro envio es: #{params[:envio]}\n\n\n\n\n\n"
-      logger.debug "parametro envio es: #{@product.envio_df}\n\n\n\n\n\n"
-      logger.debug "parametro envio es: #{@product.envio_int}\n\n\n\n\n\n"
-      logger.debug "parametro envio es: #{params[:envio_df]}\n\n\n\n\n\n"
+       logger.debug "parametro envio es: #{params[:envio]}\n\n\n\n\n\n"
+       logger.debug "parametro envio es: #{@product.envio_df}\n\n\n\n\n\n"
+       logger.debug "parametro envio es: #{@product.envio_int}\n\n\n\n\n\n"
+       logger.debug "parametro envio es: #{params[:envio_df]}\n\n\n\n\n\n"
 =end
-      @product.update_attributes(:shipping => params[:envio])
-      @product.total_price = @product.price + @product.shipping
-      @product.save
-  end
   
   def comprar
      @product = Product.find(params[:product_id])
