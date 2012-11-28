@@ -91,7 +91,7 @@
 		<br/>
 		<div style="display:none" id="campo_enviodf">
 			<p>
-				<div style="float:left">Envío en DF $</div>
+				<div style="float:left">Envío dentro DF $</div>
 			    
 			</p>
 		</div>
@@ -124,19 +124,24 @@
 			
 		</div>
 		<hr>
-		<div class="actions">
-			<%= f.submit "Crear Producto", class: "button-want" %>
-		</div>
-  
+		
 </div>
 
-<% end %>
 <div style="margin-top: -20px" class="span6" id="mainImage">
 	<div class="defaultMainImage">
 	</div>
 	<div id="ajax-status" style="float:left; display:none; margin-left:50%; margin-top:-100%; z-index: 3000"><%= image_tag("ajax-loader.gif") %></div>
-				
+	<div style="" class="well">
+		<div class="span6">
+			<div class="actions">
+				<%= link_to 'Cancelar', products_path, class: "button-unfollow" %>
+				<%= f.submit "Crear Producto", class: "button-want" %>
+			</div>
+		</div>
+	</div>		
 </div>
+<% end %>
+
 <div class="span3">
 	<div class="field" id="file_image">
 		<%= form_for(Painting.new, :remote => true) do |f| %>
@@ -152,7 +157,6 @@
 	</ul>
 </div>
 
-<div class="token-input-dropdown-facebook" style="display: none; position: absolute; left: 170px; top: 306px; width: 400px; z-index: 999;"></div>
 
 <script id="template-upload" type="text/x-tmpl">
 <div id="name" style="display:none">

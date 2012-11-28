@@ -22,6 +22,7 @@ DeviseFacebook::Application.routes.draw do
 
   resources :products do
      member { post :vote }
+     put :envio_df, on: :member
   end
   
   match '/tags', to: 'tags#show_tags'

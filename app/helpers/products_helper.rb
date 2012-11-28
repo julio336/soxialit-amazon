@@ -41,5 +41,13 @@ module ProductsHelper
      sizes.join(' - ')
   end
   
+  def total_price(price, envio)
+     total = price + envio
+     return number_to_currency(total)
+  end
   
+  def related_items(product)
+     a = product.first
+     return a.image_url
+  end
 end

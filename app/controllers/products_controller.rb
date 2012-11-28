@@ -30,6 +30,10 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
+    id = @product.user_id
+    @user = User.find(id)
+    @products = @user.products.all(:order => 'RANDOM()', :limit => 4)
+   
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @product }
@@ -68,7 +72,6 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = current_user.products.update_attributes(params[:product])
-    
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -98,13 +101,14 @@ class ProductsController < ApplicationController
     end
   end
   
+  
   def paypal_checkout
          product = Product.find(params[:product_id])
          ppr = PayPal::Recurring.new(
           return_url: product_url(product),
           cancel_url: products_url,
           description: product.title,
-          amount: product.price,
+          amount: product.total_price,
           currency: "MXN"
          )
          response = ppr.checkout
@@ -115,18 +119,32 @@ class ProductsController < ApplicationController
         end
     end
     
+  def envio_df 
+   @product = Product.find(params[:id])
+=begin
+      logger.debug "parametro envio es: #{params[:envio]}\n\n\n\n\n\n"
+      logger.debug "parametro envio es: #{@product.envio_df}\n\n\n\n\n\n"
+      logger.debug "parametro envio es: #{@product.envio_int}\n\n\n\n\n\n"
+      logger.debug "parametro envio es: #{params[:envio_df]}\n\n\n\n\n\n"
+=end
+      @product.update_attributes(:shipping => params[:envio])
+      @product.total_price = @product.price + @product.shipping
+      @product.save
+  end
+  
   def comprar
      @product = Product.find(params[:product_id])
+    
      user_cp = find_user_product(@product)
      current_user_cp = current_user.user_cp
-     logger.debug "#{user_cp}\n\n\n\n\n\n"
-     logger.debug "#{current_user_cp}\n\n\n\n\n\n"
+    # logger.debug "#{user_cp}\n\n\n\n\n\n"
+    # logger.debug "#{current_user_cp}\n\n\n\n\n\n"
      if @product.tipo_envio == "sobre"
         url = "http://rastreo2.estafeta.com:7001/Tarificador/admin/TarificadorAction.do?dispatch=doGetTarifas&cCodPosOri=#{user_cp}&cCodPosDes=#{current_user_cp}&cTipoEnvio=#{@product.tipo_envio}&cIdioma=Esp"
      else
         url = "http://rastreo2.estafeta.com:7001/Tarificador/admin/TarificadorAction.do?dispatch=doGetTarifas&cCodPosOri=#{user_cp}&cCodPosDes=#{current_user_cp}&cTipoEnvio=#{@product.tipo_envio}&cIdioma=Esp&nPeso=#{@product.peso}&nLargo=#{@product.largo}&nAncho=#{@product.ancho}&nAlto=#{@product.alto}"
      end
-     logger.debug "#{url}\n\n\n\n\n\n"
+    # logger.debug "#{url}\n\n\n\n\n\n"
      require 'net/http'
      require 'rubygems'
      require 'nokogiri'
@@ -143,7 +161,7 @@ class ProductsController < ApplicationController
         doc.css(':nth-child(6) td:nth-child(8) , :nth-child(7) :nth-child(8), :nth-child(8) td:nth-child(8)').each do |node|
         @tarifas.push(node.text)
      end
-     logger.debug "#{@tarTer2}\n\n\n\n\n\n"
+    # logger.debug "#{@tarTer2}\n\n\n\n\n\n"
   end
   
   def envio
@@ -169,7 +187,7 @@ class ProductsController < ApplicationController
            "title" => product.title,
            "description" => product.description,
            "quantity" => 1,
-           "unit_price" => product.price.to_i,
+           "unit_price" => product.total_price.to_i,
            "currency_id" => "MEX",
            "picture_url" => "http://i1266.photobucket.com/albums/jj523/JulioAhuactzin/Safari3_zpsb24612a1.png"
          }
@@ -186,7 +204,7 @@ class ProductsController < ApplicationController
        }
      }
      return data
-     logger.debug "#{json}\n\n\n\n\n\n"
+    # logger.debug "#{json}\n\n\n\n\n\n"
   end
 
   # your_view.html.erb
@@ -194,14 +212,14 @@ class ProductsController < ApplicationController
   def mercadopago_checkout
       product = Product.find(params[:product_id])
       test = products_as_json(product)
-      logger.debug "#{test}\n\n\n\n\n\n"
+     # logger.debug "#{test}\n\n\n\n\n\n"
       
       mp_data = product.mercadopago_url(test)
-      logger.debug "#{mp_data}\n\n\n\n\n\n"
+     # logger.debug "#{mp_data}\n\n\n\n\n\n"
       result = JSON.parse(mp_data.to_json)
-      logger.debug "#{result}\n\n\n\n\n\n"
+     # logger.debug "#{result}\n\n\n\n\n\n"
       initpoint = result["init_point"]
-      logger.debug "#{initpoint}\n\n\n\n\n\n"
+     # logger.debug "#{initpoint}\n\n\n\n\n\n"
           redirect_to initpoint
     end
   # DELETE /products/1

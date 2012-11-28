@@ -712,15 +712,16 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 .description-medium{
 	font-size: 14px;
 	line-height: 14px;
+	padding: 0.5%;
 }
 
 .description-low{
 	display: block;
-	float:left;
 	margin-bottom: 5px;
 	color: #999;
 	font-size: 12px;
 	line-height: 12px;
+	padding: 0.5%;
 }
 
 .description-strong{
@@ -835,7 +836,38 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
    background: #d42e28;
    }
 
-
+.button-unfollow {
+   border-top: 1px solid #414a44;
+   background: #363b38;
+   background: -webkit-gradient(linear, left top, left bottom, from(#2b2b2b), to(#363b38));
+   background: -webkit-linear-gradient(top, #2b2b2b, #363b38);
+   background: -moz-linear-gradient(top, #2b2b2b, #363b38);
+   background: -ms-linear-gradient(top, #2b2b2b, #363b38);
+   background: -o-linear-gradient(top, #2b2b2b, #363b38);
+  padding: 7px 15px;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   border-radius: 3px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 14px;
+   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button-unfollow:hover {
+   border-top-color: #292e2b;
+   background: #292e2b;
+   text-decoration: none;
+   color: #ffffff;
+   }
+.button-unfollow:active {
+   border-top-color: #151716;
+   background: #151716;
+   }
 .separador{
 	width: 200px;
 
@@ -843,4 +875,14 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 
 .forma_estafeta{
 	font-size: 12px;
+}
+
+#theme-shadow{
+	padding: 10px;
+	background-color: #F2F2F2;
+	border: 1px solid rgba(0, 0, 0, .2);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .24);
+	margin-left: -20px;
+	line-height: 0;
+
 }

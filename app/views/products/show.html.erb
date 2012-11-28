@@ -16,21 +16,37 @@
 							<% end %>
 						<% end %>
 				</ul>
-	
 	</div>
 	
 <div style="margin-top:5%" class="span5">
-	<div class="well" style="background-color:white">
+	<div class="well" id="theme-shadow" style="background-color:white">
+		<div class="description-medium">
+			<div class="product_reputation">
+			<% if signed_in? %>
+				<span id="want_product_<%= @product.id %>">
+					<i class="icon-star-empty icon-black"></i><%= pluralize @product.reputation_value_for(:votes).to_i, "Want" %>
+					<br/>
+					<br/>
+				</span>
+				
+				<% if @product.user_id == find_evaluation_id(current_user.evaluations)%>
+				<% elsif current_user && !current_user.voted_for?(@product) %>
+					<span id="want_show_<%= @product.id %>">
+				 		<%= link_to '<i class="icon-star-empty icon-white"></i> Want'.html_safe, vote_product_path(@product, type: "up"), :remote => true,  method: "post", :class => "button-want", id: "link" %>
+					</span>
+				<% end %>
+			<% end %>
+			</div>
+		</div>
 		<div class="description-main">
 		  <%= @product.title %>
-		</div>
-		<p class="description-low">by  </p>
+		<span class="description-low">by  </span> </div>
 		<div class="description-strong"> 
 		  <%= link_to @product.brand, user_path(@product.user_id) %>
 		</div> 
 		<hr>
 		<div class="description-main">
-			<div class="product_reputation">
+		<!--	<div class="product_reputation">
 			<% if signed_in? %>
 				<span id="want_product_<%= @product.id %>">
 					<i class="icon-star-empty icon-white"></i><%= pluralize @product.reputation_value_for(:votes).to_i, "Want" %>
@@ -44,37 +60,34 @@
 					</span>
 				<% end %>
 			<% end %>
-			</div>
+			</div> -->
 			
 			<%= number_to_currency(@product.price) %>
 			<div style="margin-left:25%; margin-top:-5%">
 				<%= link_to "Comprar", comprar_path(:product_id => @product.id), {:id => "modal", :rel => "tab", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true, :class => 'btn btn-success'} %>
 			</div>
-			<br/>
-			<div class="description-low"> Cantidad disponible</div><br/>
+			<div class="description-low"> Cantidad disponible</div>
 			<div class="description-medium"> <%= @product.quantity %> </div>
-			<br/>
-			<div class="description-low"> Medidas</div><br/>
-			<div class="description-medium"> <%= find_sizes(@product.sizes) %> </div><br/s>
-			<div class="description-low"> Tags: </div><br/>
+			<div class="description-low"> Medidas</div>
+			<div class="description-medium"> <%= find_sizes(@product.sizes) %> </div>
+			<div class="description-low"> Tags: </div>
 			<div class="description-tags"><%= raw @product.tag_list.map { |t| link_to t, tag_path(t) }.join(' - ') %></div>
 				
 		</div>
-		<br/>
 		<hr>
-		<div class="description-low"> Descripción del producto</div><br/>
+		<div class="description-low"> Descripción del producto</div>
 		<div class="description-medium"> <%= @product.description %> </div>
 		<hr>
-		<div class="description-low"> Colores</div><br/>
+		<div class="description-low"> Colores</div>
 		<div class="description-medium"> <%= @product.color %> </div>
 		<hr>
-		<div class="description-low"> Material</div><br/>
+		<div class="description-low"> Material</div>
 		<div class="description-medium"> <%= @product.material %> </div>
 		<hr>
-		<div class="description-low"> Política de devoluciones</div><br/>
+		<div class="description-low"> Política de devoluciones</div>
 		<div class="description-medium"> <%= @product.refund_policy %> </div>
 		<hr>
-		<div class="description-low"> Opciones de envío</div><br/>
+		<div class="description-low"> Opciones de envío</div>
 			<% if @product.envio_df.nil? %>
 				<% else %>
 				<div class="description-medium">Envío en DF:  <%= number_to_currency(@product.envio_df) %> </div>
@@ -83,11 +96,30 @@
 				<% else %>
 				<div class="description-medium">Envío interior del país:  <%= number_to_currency(@product.envio_int) %> </div>
 			<% end %>
-			<% if @product.cp.length > 0 %>
-				<div class="description-medium">Recógelo en CP: <%= @product.cp %> (gratis)</div>
+			<% if @product.cp.nil? %>
+			<% else %>
+				<% if @product.cp.length > 0 %>
+					<div class="description-medium">Recógelo en CP: <%= @product.cp %> (gratis)</div>
+				<% end %>
 			<% end %>
 	</div>
-	
+	<div id="theme-shadow" style="background-color:white; height: auto" class="well">
+		<div style="margin-left:0px" class="row">
+			<div class="description-medium">
+				Productos de <%= link_to @product.brand, user_path(@product.user_id) %>
+			</div>
+			<% @products.each do |product| %>
+				<div style="padding:1%; width: 22.5%" class="span3">
+					<% if product.title.nil? %>
+					<% else %>
+						<span class="description-low"><%= (product.title) %> </span>
+						<div style="height: auto; margin-top: 10%"><%= link_to image_tag(url_painting(product.paintings)), product %></div>
+						
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
 </div>
 
-</div>

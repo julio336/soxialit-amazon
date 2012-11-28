@@ -6,19 +6,22 @@ class Product < ActiveRecord::Base
   attr_reader :tag_list
   attr_reader :size_tokens
   attr_reader :tag_tokens
-  attr_accessible :tipo_envio, :cp, :peso, :alto, :largo, :ancho, :envio_int, :envio_df, :color, :description, :material, :picture, :quantity, :refund_policy, :size, :title, :user_id, :brand, :price  
+  attr_accessible :shipping, :total_price, :tipo_envio, :cp, :peso, :alto, :largo, :ancho, :envio_int, :envio_df, :color, :description, :material, :picture, :quantity, :refund_policy, :size, :title, :user_id, :brand, :price  
   attr_accessible :name, :image
   attr_accessible :tag_list
   attr_accessible :size_tokens
   attr_accessible :tag_tokens
   
   validates :price, :numericality => {:greater_than_or_equal_to => 0.01}, :on => :update
-  validates :color, :description, :material, :quantity, :refund_policy, :title, :brand, :presence => { :message => "*dato requerido" }, :allow_blank => true, :on => :update
+  validates_numericality_of :quantity, :greater_than => 0, :less_than => 5, :on => :update    
+  validates :color, :description, :material, :refund_policy, :title, :brand, :presence => { :message => "*dato requerido" }, :allow_blank => true, :on => :update
   #validates :description, :material, :title, :refund_policy, :format => {:with => /^[a-zA-Z\d\s]*$/}
   acts_as_taggable
  
   has_reputation :votes, source: :user, aggregated_by: :sum
   
+  
+
   def mercadopago_url(datos)
      client_id = '4268569064335968'
      client_secret = 'pa6nV2JXuGee00YUoXaHsI3fPGhUfNTc'

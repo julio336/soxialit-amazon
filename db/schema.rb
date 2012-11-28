@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121230111) do
+ActiveRecord::Schema.define(:version => 20121126231931) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(:version => 20121121230111) do
     t.integer  "largo"
     t.integer  "ancho"
     t.string   "tipo_envio"
+    t.decimal  "total_price"
+    t.decimal  "shipping"
   end
 
   add_index "products", ["user_id"], :name => "index_products_on_user_id"

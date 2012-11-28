@@ -11,25 +11,31 @@
     </div>
   <% end %>
 <div sytle="padding-top: 2%" id="product_form" class="span3">
-  <div class="field">
-    <%= f.text_field :title, placeholder: " *titulo" %>
-  </div>
-  <div class="field">
-    <%= f.text_field :brand, placeholder: " *marca" %>
-  </div>
-  <div class="field">
-	<%= f.label :price, "*precio" %>
-    <%= f.text_field :price, placeholder: " 0.00", :class => "span2", :style => "float:left" %><p>   MXN </p>
-  </div>
-  <div class="field">
-    <%= f.text_area :description, rows: "4", placeholder: "*describe tu producto" %>
-  </div>
-  <div class="field">
-    <%= f.text_field :color, placeholder: "*color" %>
-  </div>
-  <div class="field">
-    <%= f.text_field :material, placeholder: "*material" %>
-  </div>
+  	<div class="field">
+		<%= f.label :title, "*nombre del producto" %>
+		<%= f.text_field :title, placeholder: "" %>
+	  </div>
+	  <div class="field">
+		<%= f.label :brand, "*marca" %>
+	    <%= f.text_field :brand, placeholder: "" %>
+	  </div>
+	  <div class="field">
+		<%= f.label :price, "*precio" %>
+	    <%= f.text_field :price, placeholder: " 0.00", :class => "span2", :style => "float:left" %><p>   MXN </p>
+	  </div>
+	  <br/>
+	  <div class="field">
+		<%= f.label :description, "*describe tu producto" %>
+	    <%= f.text_area :description, rows: "4", placeholder: "" %>
+	  </div>
+	  <div class="field">
+		<%= f.label :color, "*color" %>
+	    <%= f.text_field :color, placeholder: "" %>
+	  </div>
+	  <div class="field">
+		<%= f.label :material, "*material" %>
+	    <%= f.text_field :material, placeholder: "" %>
+	  </div>
  
   <div class="field" style="height: 127px">
 	<p style="float:left">
@@ -81,17 +87,29 @@
 				<%= link_to "opciones de envío", envio_path(:product_id => @product.id), {:id => "modal", :rel => "tab", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true, :class => 'btn'} %>
 			</div>
 			<br/>
+					<% if @product.envio_df.nil? %>
+					<% else%>
+					<div style="display:block" id="campo_enviodf">
+					
+						<%= "Envío dentro DF $#{@product.envio_df}" %>
+					</div>
+					<% end %>
+				
+					<% if @product.envio_int.nil? %>
+					<% else%>
+					<div style="display:block" id="campo_envioint">
+					
+						<%= "Envío al interior del país $#{@product.envio_int}" %>
+					</div>
+					<% end %>
 			<div style="display:none" id="campo_enviodf">
 				<p>
-					<div style="float:left">Envío en DF $</div>
-					<%= f.text_field :envio_df, :class => "span2", :style => "display:none" %>
-
+					<div style="float:left">Recoger en CP: </div>
 				</p>
 			</div>
 			<div style="display:none" id="campo_envioint">
 				<p>
-					<div style="float:left">Envío interior del país $</div>
-					<%= f.text_field :envio_int, :class => "span2", :style => "display:none" %>
+					<div style="float:left">Recoger en CP: </div>
 				</p>
 			</div>
 			<div style="display:none" id="campo_cp">
@@ -113,6 +131,9 @@
 				<%= f.text_field :alto, :class => "span2", :style => "display:none" %>
 				<%= f.text_field :largo, :class => "span2", :style => "display:none" %>
 				<%= f.text_field :ancho, :class => "span2", :style => "display:none" %>
+				<%= f.text_field :envio_df, :class => "span2", :style => "display:none" %>
+				<%= f.text_field :envio_int, :class => "span2", :style => "display:none" %>
+				
 
 			</div>
 			<hr>
@@ -145,9 +166,9 @@
 			<% end %>
 		</div>
 		<ul id="productImagesSortable">
-			<% if @paintings.count > 1 %>
+			<% if @paintings.count > 1  %>
 				<% @paintings.each_with_index do |painting, index| %>
-					<% if index >= 1%>
+					<% if index > 0 && index <= 4 %>
 				<%= content_tag "div", id:"paintings", data: {id: painting.id } do %>
 				 <li id="smallImage" class="painting_<%= painting.id%>">
 					<%= image_tag(painting.image_url(:thumb))%>

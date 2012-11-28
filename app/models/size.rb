@@ -3,7 +3,7 @@ class Size < ActiveRecord::Base
   belongs_to :product
   
   
-  def self.tokens(query)
+    def self.tokens(query)
       authors = where("name like ?", "%#{query}%")
       if authors.empty?
         [{id: "<<<#{query}>>>", name: "\"#{query}\""}]
