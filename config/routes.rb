@@ -36,7 +36,8 @@ DeviseFacebook::Application.routes.draw do
   
   get '/envio', to: 'products#envio'
   
-  
+  get '/tallas', to: 'products#tallas'
+    
   get 'mercadopago/checkout', to: 'products#mercadopago_checkout'
   
   #root :to => 

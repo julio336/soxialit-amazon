@@ -886,3 +886,22 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 	line-height: 0;
 
 }
+.size_label{
+	float: right;
+	border: #AAA solid 1px;
+	border-radius: 5px;
+	margin-left: 10px;
+	font-style: normal;
+	font-weight: normal;
+	word-spacing: normal;
+	letter-spacing: normal;
+	text-decoration: none;
+	margin: 2px ;
+	padding: 2px ;
+	list-style: none;
+	font-color: black;
+	a{
+		font-color: black;
+	}
+
+}

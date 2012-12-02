@@ -137,26 +137,34 @@
 
 			</div>
 			<hr>
-		<div class="actions">
+<!--		<div class="actions">
 			<%= f.submit "Update Product", class: "btn btn-large btn-primary" %>
-		</div>
+		</div> -->
   
 </div>
 
-<% end %>
-<% if @paintings.nil?%>
-	<% else %>
+
    <div class="span6">
-		  <% unless @paintings.first.nil? %>
+		  <% unless @paintings.first.nil? || @paintings.count == 0 %>
 				<div class="mainpicture" id="painting_<%= @paintings.first.id %>">
-				<%= image_tag(@paintings.first.image_url(:timeline))  %>
-				<% else %>
+					<%= image_tag(@paintings.first.image_url(:timeline))  %>
+				</div>
+					<% else %>
 				<div class="defaultMainImage">
 				</div>
 		  <% end %>
 		<div id="ajax-status" style="float:left; display:none; margin-left:50%; margin-top:-100%; z-index: 3000"><%= image_tag("ajax-loader.gif") %></div>
+		<div style="" class="well">
+			<div class="span6">
+				<div class="actions">
+					<%= link_to 'Cancelar', products_path, class: "button-unfollow" %>
+					<%= f.submit "Actualizar producto", class: "button-want" %>
+				</div>
+			</div>
 		</div>
 	</div>
+	<% end %>
+
 	<div class="span3">
 		<div class="field">
 			<%= form_for(Painting.new, :remote => true) do |f| %>
@@ -168,21 +176,18 @@
 		<ul id="productImagesSortable">
 			<% if @paintings.count > 1  %>
 				<% @paintings.each_with_index do |painting, index| %>
-					<% if index > 0 && index <= 4 %>
-				<%= content_tag "div", id:"paintings", data: {id: painting.id } do %>
-				 <li id="smallImage" class="painting_<%= painting.id%>">
-					<%= image_tag(painting.image_url(:thumb))%>
-						<div class="actions" id="remove_painting_<%= painting.id %>">
-							<%= link_to image_tag("close.png"), painting, method: :delete, remote: true, id: "remove" %>
-					  	</div>
-				 </li>
-				<% end %>
-				
+					<% if index > 0 && index < 4 %>
+						<%= content_tag "div", id:"paintings", data: {id: painting.id } do %>
+				 			<li id="smallImage" class="painting_<%= painting.id%>">
+								<%= image_tag(painting.image_url(:thumb))%>
+								<div class="actions" id="remove_painting_<%= painting.id %>">
+									<%= link_to image_tag("close.png"), painting, method: :delete, remote: true, id: "remove" %>
+					  			</div>
+				 			</li>
+						<% end %>
 					<% end %>
 				<% end %>
 			<% end %>
-		<% end %>
-				
 		</ul>
 	</div>
 

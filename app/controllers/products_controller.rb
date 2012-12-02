@@ -128,6 +128,10 @@ class ProductsController < ApplicationController
    @product.total_price = (@product.price + @product.shipping).to_i
    @product.save
  end
+ 
+ def tallas
+    @product = Product.find(params[:product_id])
+ end
 =begin
        logger.debug "parametro envio es: #{params[:envio]}\n\n\n\n\n\n"
        logger.debug "parametro envio es: #{@product.envio_df}\n\n\n\n\n\n"
