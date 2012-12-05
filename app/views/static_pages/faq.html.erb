@@ -57,7 +57,8 @@
 			 <span style="display:none" class="literatura">	Cada vendedor ha especificado sus opciones de envío, deberás seleccionar alguna opción del menú y dar click en elegir. Este costo de envío se sumara el precio total del producto.</span></p>
 			 <p class="literatura-link"><strong>Paso 3. Servicio de pagos</strong><br/>
 			 <span style="display:none" class="literatura">Selecciona el servicio de pago que desees, tienes dos opciones a elegir MercadoPago ó Paypal, al dar clic en alguna de estas dos opciones serás redireccionado a la plataforma de pagos.</span></p>
-			 <p class="literatura">Paso 4. Notificación de compra </p>
+			 <p class="literatura-link"><strong>Paso 4. Notificación de compra</strong><br/>
+			 <span style="display:none" class="literatura">Al ser direccionado a la plataforma de pagos debes completar el proceso de compra, simplemente sigue las instrucciones. Al terminar recibirás información con tu pago, nosotros nos pondremos en contacto contigo para finalizar el proceso de compra y envio.</span></p>
 			<!-- <p class="literatura">¿Cómo puedo buscar un producto en Soxialit?</p>
 			 <p class="literatura">¿Cómo puedo cancelar una compra?</p> -->
              <p class="literatura"><a class="btn" href="#">View details &raquo;</a></p>
@@ -85,8 +86,8 @@
 <script>
 $(document).ready(function(){
 	$('.literatura-link').live('click', function(){
-		$('span.literatura').hide();
-		$(this).find('span').fadeIn();
+		$('span.literatura').hide("blind", {}, 500);
+		$(this).find('span').show("blind", {}, 500);
 	});
 });
 
