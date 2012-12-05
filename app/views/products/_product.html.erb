@@ -18,10 +18,14 @@
 					<p>
 						<% if signed_in? %>
 							<div class="reputation" id="reputation_<%= product.id %>">
-							 	<span id="want_product_<%= product.id %>">
+							 <!--	<span id="want_product_<%= product.id %>">
 									<i class="icon-star-empty icon-white"></i><%= pluralize product.reputation_value_for(:votes).to_i, "Want" %>
-								</span>
-						
+								</span> -->
+								<div class="love_reputation" >
+									<span style="float:right" id="love_product_<%= product.id %>">
+										<%= product.reputation_value_for(:votes).to_i %>
+									</span>
+								</div>
 								<br/> 
 							</div>
 						
@@ -30,7 +34,9 @@
 						    <% if product.user_id == find_evaluation_id(current_user.evaluations)%>
 							<% elsif current_user && !current_user.voted_for?(product) %>
 								<span id="want_<%= product.id %>">
-							 		<%= link_to '<i class="icon-star-empty icon-white"></i> Want'.html_safe, vote_product_path(product, type: "up"), :remote => true,  method: "post", :class => "button-want", id: "link" %>
+									<div class="love_icon">
+										<%= link_to "x", vote_product_path(product, type: "up"), :class =>"trick_anchor", :remote => true,  method: "post", id: "link" %>
+									</div>
 						   		</span>
 							<% end %>
 						</div>
@@ -44,6 +50,14 @@
 <script>
 
 	$(document).ready(function(){
+		
+	/*	
+		$('.love_icon').live("click", 
+				function(){
+					window.location=$(this).find("a").attr("href"); 
+					return false;
+				}); */	
+	
 
 		$('.products').live({
 			mouseenter: 

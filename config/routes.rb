@@ -1,5 +1,6 @@
 DeviseFacebook::Application.routes.draw do
 
+
   resources :feedbacks
 
   resources :sizes
@@ -40,6 +41,17 @@ DeviseFacebook::Application.routes.draw do
     
   get 'mercadopago/checkout', to: 'products#mercadopago_checkout'
   
+  get "static_pages/terms"
+
+  get "static_pages/privacy"
+
+  get "static_pages/faq"
+
+  get "static_pages/start"
+
+  get "static_pages/buy"
+
+  get "static_pages/sell"
   #root :to => 
 
   # The priority is based upon order of creation:

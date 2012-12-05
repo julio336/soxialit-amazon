@@ -3,4 +3,8 @@ class StaticPagesController < ApplicationController
   #load_and_authorize_resource  CanCan authorization
   def home
   end
+  
+  def faq
+  end
+  
 end
