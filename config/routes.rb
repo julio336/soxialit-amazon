@@ -41,11 +41,11 @@ DeviseFacebook::Application.routes.draw do
     
   get 'mercadopago/checkout', to: 'products#mercadopago_checkout'
   
-  get "static_pages/terms"
+  get "terms", to:'static_pages#terms'
 
-  get "static_pages/privacy"
+  get "privacy", to:'static_pages#privacy'
 
-  get "static_pages/faq"
+  get "faq", to:'static_pages#faq'
 
   get "static_pages/start"
 

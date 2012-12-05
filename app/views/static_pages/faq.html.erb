@@ -16,7 +16,7 @@
          <div class="row-fluid">
            <div class="span4">
              <h2>Sobre Soxialit...</h2>
-             <p class="literatura">Soxialit es una red social que conecta a los amantes de la Moda. <br/>Donde puedes descubrir, compartir y comprar productos directamente de diseñadores independientes y 
+             <p class="literatura">Soxialit es una red social que conecta a los amantes de la Moda. <br/>Donde puedes descubrir y compartir contenido sobre moda, ademas de comprar productos directamente de diseñadores independientes y 
 			    boutiques.</p>
              <p class="literatura">Contacto: </p>
 			 <p class="literatura">Email: <strong>info@soxialit.com</strong></p>
@@ -49,10 +49,14 @@
            <div class="span4">
              <h2>Compradores</h2>
              <p class="literatura">Aprende como comprar un producto, cancela una orden de compra y otras respuestas relacionadas con el proceso de compra de un producto.</p>
-			 <p class="literatura">¿Cómo compro un producto en Soxialit?</p>
-			 <p class="literatura">Paso 1. Comprar</p>
-			 <p class="literatura">Paso 2. Envios </p>
-			 <p class="literatura">Paso 3. Servicio de pagos </p>
+			 <p class="literatura-link"><strong>¿Cómo compro un producto en Soxialit?</strong>
+			 <span style="display:none"class="literatura">Después de haber creado tu cuenta en Soxialit, puedes comprar productos haciendo click en el botón de compra en un producto, también puedes añadir productos a tu lista de "loves".</span></p>
+			 <p class="literatura-link"><strong>Paso 1. Comprar</strong><br/>
+			 <span style="display:none"class="literatura">Al dar click en el botón de compra se desplegara un menú con el resumen de tu compra, a continuación deberás seleccionar el método de envío que mas te convenga y dar click en elegir.</span></p>
+			 <p class="literatura-link"><strong>Paso 2. Envíos</strong><br/>
+			 <span style="display:none" class="literatura">	Cada vendedor ha especificado sus opciones de envío, deberás seleccionar alguna opción del menú y dar click en elegir. Este costo de envío se sumara el precio total del producto.</span></p>
+			 <p class="literatura-link"><strong>Paso 3. Servicio de pagos</strong><br/>
+			 <span style="display:none" class="literatura">Selecciona el servicio de pago que desees, tienes dos opciones a elegir MercadoPago ó Paypal, al dar clic en alguna de estas dos opciones serás redireccionado a la plataforma de pagos.</span></p>
 			 <p class="literatura">Paso 4. Notificación de compra </p>
 			<!-- <p class="literatura">¿Cómo puedo buscar un producto en Soxialit?</p>
 			 <p class="literatura">¿Cómo puedo cancelar una compra?</p> -->
@@ -65,7 +69,6 @@
 			 <p class="literatura">¿Qué productos se pueden vender?</p>
 			 <p class="literatura">¿Qué productos no se pueden vender?</p>
 			 <p class="literatura">¿Qué pasa si mi producto tiene muchas variaciones de tallas?</p>
-             <p class="literatura"><a class="btn" href="#">View details &raquo;</a></p>
            </div><!--/span-->
            <div class="span4">
              <h2>Problemas generales</h2>
@@ -78,3 +81,13 @@
        </div><!--/span-->
      </div><!--/row-->
    </div><!--/.fluid-container-->
+
+<script>
+$(document).ready(function(){
+	$('.literatura-link').live('click', function(){
+		$('span.literatura').hide();
+		$(this).find('span').fadeIn();
+	});
+});
+
+</script>
