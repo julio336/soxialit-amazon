@@ -5,7 +5,6 @@ class Product < ActiveRecord::Base
   
   attr_reader :tag_list
   attr_reader :size_tokens
-  attr_reader :tag_tokens
   attr_accessible :shipping, :total_price, :tipo_envio, :cp, :peso, :alto, :largo, :ancho, :envio_int, :envio_df, :color, :description, :material, :picture, :quantity, :refund_policy, :size, :title, :user_id, :brand, :price  
   attr_accessible :name, :image
   attr_accessible :tag_list

@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
    if params[:tag]
        @products = Product.tagged_with(params[:tag])
    else
-       @products = avoid_nil(Product.order('created_at DESC').page(params[:page]))
+       @products = Product.order('created_at DESC').page(params[:page]))
        @tags = Tag.where("name like ?", "%#{params[:q]}%")
    end
    respond_to do |format|
